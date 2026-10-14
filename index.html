@@ -1,0 +1,1540 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>INSY 2299 Midterm Study Coach</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&display=swap" rel="stylesheet">
+<style>
+:root{--maroon:#7F0B2A;--navy:#1F3864;--bg:#FAF7F5;--card:#fff;--ink:#1B1B1F;--mute:#5B5F6B;--line:#D9D4D0;
+ --ok:#1E7B3A;--ok-bg:#E6F4EA;--warn:#7A4F00;--warn-bg:#FFF1CC;--bad:#A4151F;--bad-bg:#FBE9EA;--ask:#F6E3E8;--grid:#C9CDD6}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
+header{background:var(--maroon);color:#fff;padding:18px 16px 0}
+.wrap{max-width:980px;margin:0 auto}
+h1{font:900 22px/1.2 Montserrat,system-ui,Arial,sans-serif;margin:0;letter-spacing:.2px}
+.sub{margin:4px 0 12px;opacity:.9;font-size:14px}
+nav{display:flex;gap:4px;flex-wrap:wrap}
+.tab{border:0;background:rgba(255,255,255,.14);color:#fff;padding:10px 14px;border-radius:8px 8px 0 0;font:700 14px Montserrat,system-ui,Arial,sans-serif;cursor:pointer}
+.tab.on{background:var(--bg);color:var(--maroon)}
+.tab:focus-visible,.btn:focus-visible,.opt:focus-visible,.subtab:focus-visible,input:focus-visible{outline:3px solid var(--navy);outline-offset:2px}
+main{padding:16px}
+#progress{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 12px}
+.chip{background:#fff;border:1px solid var(--line);border-radius:999px;padding:2px 10px;font-size:12px;color:var(--mute)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px;margin:0 0 14px}
+h3{font:900 18px Montserrat,system-ui,Arial,sans-serif;color:var(--navy);margin:0 0 8px}
+h4{font:700 15px Montserrat,system-ui,Arial,sans-serif;color:var(--navy);margin:0 0 10px}
+.desc ul{margin:6px 0 10px;padding-left:20px}
+.sheet-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+table.sheet{border-collapse:collapse;font:13px/1.3 Calibri,"Segoe UI",Arial,sans-serif;min-width:520px}
+.sheet th,.sheet td{border:1px solid var(--grid);padding:4px 8px;white-space:nowrap;height:26px}
+.sheet th{background:#EEF0F4;color:#444;font-weight:600;text-align:center}
+.sheet th.rown{width:34px}
+.sheet td.num{text-align:right}.sheet td.faint{color:#888}
+.sheet td.title{font-weight:700;color:var(--navy);border:0}
+.sheet td.sec{font-weight:700}
+.sheet td.hdr{font-weight:700;background:#F5F6F8;text-align:center}
+.sheet td.ask{background:var(--ask);color:var(--maroon);font-weight:700;text-align:center;border:2px solid var(--maroon)}
+.sheet td.copy{color:#8a8a8a;font-style:italic;font-size:12px;text-align:center}
+.sheet td.f{font-family:Consolas,Menlo,monospace;background:#FBFBFD}
+.sheet td.origin{border:2px solid var(--navy);background:#E9EEF8}
+.gate{background:#FFF8E5;border:1px solid #E8D9A8;border-radius:10px;padding:12px 16px;margin:0 0 14px}
+.gate.done{display:none}
+.gate p{margin:0 0 8px}
+.btn{background:var(--maroon);color:#fff;border:0;border-radius:8px;padding:9px 16px;font:700 14px system-ui,Arial,sans-serif;cursor:pointer}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.btn.ghost{background:#fff;color:var(--maroon);border:1px solid var(--maroon)}
+.item{padding:12px 0;border-top:1px solid var(--line)}
+.item:first-of-type{border-top:0}
+.item label{display:block;font-weight:600;margin-bottom:6px}
+.addr{display:inline-block;background:var(--navy);color:#fff;border-radius:6px;padding:0 7px;font:700 13px Consolas,Menlo,monospace}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.row.actions{margin-top:12px}
+input.fx{flex:1 1 280px;min-width:0;font:16px Consolas,Menlo,monospace;padding:9px 10px;border:1px solid #8b8f99;border-radius:8px;background:#fff;color:var(--ink)}
+input.fx.short{flex:0 0 150px}
+input.fx:disabled{background:#F1F1F3}
+code{font-family:Consolas,Menlo,monospace;background:#F1EEF0;padding:1px 5px;border-radius:4px}
+.hint{margin-top:8px;color:var(--navy)}.hint:empty{display:none}
+.result:empty{display:none}.result{margin-top:8px}
+.result ul,.result ol{margin:6px 0 0;padding-left:20px}
+.badge{display:inline-block;border-radius:6px;padding:2px 10px;font-weight:700;font-size:13px}
+.badge.ok{background:var(--ok-bg);color:var(--ok)}.badge.warn{background:var(--warn-bg);color:var(--warn)}.badge.bad{background:var(--bad-bg);color:var(--bad)}
+.small{font-size:13px;color:var(--mute);margin:6px 0 0}
+.summary{margin-top:10px;font-weight:700;color:var(--navy)}
+.subtabs{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 14px}
+.subtab{background:#fff;border:1px solid var(--navy);color:var(--navy);padding:7px 12px;border-radius:999px;font:600 13px system-ui,Arial,sans-serif;cursor:pointer}
+.subtab.on{background:var(--navy);color:#fff}
+.opts{display:grid;gap:8px;margin:8px 0}
+.opt{text-align:left;background:#fff;border:1px solid #8b8f99;border-radius:8px;padding:10px 12px;font:15px system-ui,Arial,sans-serif;color:var(--ink);cursor:pointer}
+.opt.right{background:var(--ok-bg);border-color:var(--ok)}.opt.wrong{background:var(--bad-bg);border-color:var(--bad)}
+.q{font-weight:600;margin:0 0 6px}
+.fb:empty{display:none}.fb p{margin:6px 0 0}
+details.how{margin:0 0 12px;color:var(--mute);font-size:14px}
+details.how summary{cursor:pointer;color:var(--navy);font-weight:600}
+footer{max-width:980px;margin:0 auto;padding:4px 16px 28px;color:var(--mute);font-size:12px}
+
+.skillcard{background:#F3F6FB;border:1px solid #C9D3E6;border-left:4px solid var(--navy);border-radius:10px;padding:10px 16px;margin:0 0 12px}
+.skillcard summary{cursor:pointer;font:700 14px Montserrat,system-ui,Arial,sans-serif;color:var(--navy)}
+.skillcard p{margin:6px 0 0}.skillcard .ex{margin-top:6px}
+.skills-used{margin:8px 0 0;font-size:12px;color:var(--mute)}
+.sk{display:inline-block;background:#EEF0F4;border-radius:999px;padding:1px 9px;margin:0 4px 4px 0;color:var(--navy);font-weight:600}
+.grow{display:grid;grid-template-columns:1fr minmax(180px,260px);gap:8px;align-items:center;padding:8px 0;border-top:1px solid var(--line)}
+.grow:first-of-type{border-top:0}
+.gsel{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+select{font:15px system-ui,Arial,sans-serif;padding:7px 8px;border:1px solid #8b8f99;border-radius:8px;background:#fff;color:var(--ink);max-width:100%}
+.mark{font-weight:700;font-size:13px}.mark.ok{color:var(--ok)}.mark.bad{color:var(--bad)}
+code.big{font-size:15px;display:inline-block;padding:6px 10px;overflow-wrap:anywhere}
+.skrow{display:grid;grid-template-columns:minmax(150px,1.4fr) minmax(90px,1fr) 90px 100px 80px;gap:10px;align-items:center;padding:8px 0;border-top:1px solid var(--line)}
+.skrow:first-child{border-top:0}
+.skname{font-weight:600}.skstat{font-size:13px;color:var(--mute)}
+.bar{height:10px;background:#E8E4E1;border-radius:6px;overflow:hidden}
+.fill{height:100%}.fill.ok{background:var(--ok)}.fill.warn{background:#C98A00}.fill.bad{background:var(--bad)}.fill.idle{background:#C9CDD6}
+.small-btn{padding:5px 10px;font-size:12px}
+@media (max-width:640px){.grow{grid-template-columns:1fr}.skrow{grid-template-columns:1fr 1fr;gap:6px}.skname{grid-column:1/3}.bar{grid-column:1/3}}
+@media (max-width:560px){h1{font-size:18px}.tab{padding:9px 10px;font-size:13px}main{padding:12px}input.fx.short{flex:1 1 120px}}
+
+.tag{display:inline-block;background:var(--maroon);color:#fff;border-radius:4px;padding:1px 7px;font-size:12px;font-weight:700}
+.vis{margin:8px 0 12px}
+.xstrip{display:flex;align-items:center;gap:8px;border:1px solid var(--grid);background:#F5F6F8;padding:4px 8px;font:13px Calibri,"Segoe UI",Arial,sans-serif;margin-bottom:6px}
+.xstrip .namebox{border:1px solid #bbb;background:#fff;padding:1px 10px;min-width:56px;text-align:center;font-weight:600}
+.xstrip .fxlabel{color:#666;font-style:italic;font-weight:700}
+.xstrip .fxbar{flex:1;background:#fff;border:1px solid #ddd;padding:1px 8px;min-height:20px;white-space:nowrap;overflow:hidden}
+.vis table.sheet{min-width:0}
+.sheet td.active{outline:2px solid #217346;outline-offset:-2px;background:#E8F4EC;position:relative}
+.sheet td.handle::after{content:"";position:absolute;right:-3px;bottom:-3px;width:7px;height:7px;background:#217346;border:1px solid #fff}
+.sheet td.err{color:#B00020;font-weight:700}
+.sheet td.f{font-family:ui-monospace,Consolas,monospace;color:#B00020}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+<h1>INSY 2299 Midterm Study Coach</h1>
+<p class="sub">Fordham Gabelli School of Business. Learn the skills, then practice them.</p>
+<nav id="nav" role="tablist" aria-label="Modules"></nav></div></header>
+<main><div class="wrap">
+<details class="how"><summary>How this works</summary>
+<p>Write each formula on paper first, then type what you wrote. The coach does not compare text. It tests your formula with the numbers shown, with changed inputs, with a loss year, and after copying it right or down. Many different formulas are correct. Every new problem uses new numbers. Each answer counts toward the skills it uses, and My skills shows where to practice next. Your results stay in this browser only.</p></details>
+<div id="view"></div>
+</div></main>
+<footer>Practice tool for INSY 2299. It is not the exam and does not replace the lecture slides or the labs.</footer>
+<script>/* Mini spreadsheet formula engine: parse, evaluate, copy (translate), grade. */
+(function (root) {
+  'use strict';
+  function XlErr(code) { this.code = code; }
+  const isErr = (v) => v instanceof XlErr;
+
+  function colToNum(s) { let n = 0; for (const ch of s) n = n * 26 + (ch.charCodeAt(0) - 64); return n; }
+  function numToCol(n) { let s = ''; while (n > 0) { const r = (n - 1) % 26; s = String.fromCharCode(65 + r) + s; n = Math.floor((n - 1) / 26); } return s; }
+  function addr(a) { const m = /^\$?([A-Za-z]{1,3})\$?(\d+)$/.exec(a); return { col: colToNum(m[1].toUpperCase()), row: parseInt(m[2], 10) }; }
+  function addrText(col, row) { return numToCol(col) + row; }
+
+  function tokenize(s) {
+    const toks = []; let i = 0;
+    while (i < s.length) {
+      const c = s[i];
+      if (/\s/.test(c)) { i++; continue; }
+      const rest = s.slice(i); let m;
+      if ((m = /^(\d+\.?\d*|\.\d+)/.exec(rest))) { toks.push({ t: 'num', v: parseFloat(m[1]) }); i += m[1].length; continue; }
+      if ((m = /^"([^"]*)"/.exec(rest))) { toks.push({ t: 'str', v: m[1] }); i += m[0].length; continue; }
+      if ((m = /^(\$?)([A-Za-z]{1,3})(\$?)(\d+)(?![A-Za-z0-9_(])/.exec(rest))) {
+        toks.push({ t: 'ref', ac: !!m[1], col: colToNum(m[2].toUpperCase()), ar: !!m[3], row: parseInt(m[4], 10) });
+        i += m[0].length; continue;
+      }
+      if ((m = /^([A-Za-z][A-Za-z0-9_.]*)/.exec(rest))) { toks.push({ t: 'id', v: m[1].toUpperCase() }); i += m[0].length; continue; }
+      if ((m = /^(<=|>=|<>|[-+*\/^=<>(),:%])/.exec(rest))) { toks.push({ t: 'op', v: m[1] }); i += m[1].length; continue; }
+      throw new Error('The character "' + c + '" is not allowed in a formula.');
+    }
+    return toks;
+  }
+
+  function parse(src) {
+    const s = String(src).trim();
+    if (s[0] !== '=') throw new Error('A formula starts with an equals sign (=).');
+    const toks = tokenize(s.slice(1)); let p = 0;
+    const isOp = (v) => toks[p] && toks[p].t === 'op' && toks[p].v === v;
+    const isOneOf = (list) => toks[p] && toks[p].t === 'op' && list.indexOf(toks[p].v) >= 0;
+    function expect(v) {
+      if (!isOp(v)) throw new Error('Expected "' + v + '"' + (toks[p] ? ' but found "' + (toks[p].v !== undefined ? toks[p].v : toks[p].t) + '"' : ' before the formula ended') + '. Check your parentheses and commas.');
+      p++;
+    }
+    function cmp() { let l = add(); while (isOneOf(['=', '<>', '<', '>', '<=', '>='])) { const op = toks[p++].v; l = { t: 'bin', op, l, r: add() }; } return l; }
+    function add() { let l = mul(); while (isOneOf(['+', '-'])) { const op = toks[p++].v; l = { t: 'bin', op, l, r: mul() }; } return l; }
+    function mul() { let l = pow(); while (isOneOf(['*', '/'])) { const op = toks[p++].v; l = { t: 'bin', op, l, r: pow() }; } return l; }
+    function pow() { let l = unary(); while (isOp('^')) { p++; l = { t: 'bin', op: '^', l, r: unary() }; } return l; }
+    function unary() { if (isOp('-')) { p++; return { t: 'un', op: '-', x: unary() }; } if (isOp('+')) { p++; return unary(); } return post(); }
+    function post() { let x = prim(); while (isOp('%')) { p++; x = { t: 'pct', x }; } return x; }
+    function prim() {
+      const t = toks[p++];
+      if (!t) throw new Error('The formula ends too early.');
+      if (t.t === 'num') return { t: 'num', v: t.v };
+      if (t.t === 'str') return { t: 'str', v: t.v };
+      if (t.t === 'ref') {
+        const a = { t: 'ref', col: t.col, row: t.row, ac: t.ac, ar: t.ar };
+        if (isOp(':')) {
+          p++; const b = toks[p++];
+          if (!b || b.t !== 'ref') throw new Error('A range needs a cell on both sides of the colon, like B3:B9.');
+          return { t: 'range', a, b: { t: 'ref', col: b.col, row: b.row, ac: b.ac, ar: b.ar } };
+        }
+        return a;
+      }
+      if (t.t === 'id') {
+        if (isOp('(')) {
+          p++; const args = [];
+          if (!isOp(')')) { args.push(cmp()); while (isOp(',')) { p++; args.push(cmp()); } }
+          expect(')');
+          return { t: 'fn', name: t.v, args };
+        }
+        if (t.v === 'TRUE') return { t: 'bool', v: true };
+        if (t.v === 'FALSE') return { t: 'bool', v: false };
+        throw new Error('"' + t.v + '" is not a cell, a function, or a number. Cells look like B5.');
+      }
+      if (t.t === 'op' && t.v === '(') { const e = cmp(); expect(')'); return e; }
+      throw new Error('Unexpected "' + t.v + '" in the formula.');
+    }
+    const ast = cmp();
+    if (p < toks.length) throw new Error('Unexpected "' + (toks[p].v !== undefined ? toks[p].v : toks[p].t) + '". Check your parentheses and commas.');
+    return ast;
+  }
+
+  const num = (v) => {
+    if (isErr(v)) throw v;
+    if (typeof v === 'boolean') return v ? 1 : 0;
+    if (typeof v === 'string') throw new XlErr('#VALUE!');
+    return v;
+  };
+
+  function rangeValues(n, ctx) {
+    const out = [];
+    const c1 = Math.min(n.a.col, n.b.col), c2 = Math.max(n.a.col, n.b.col), r1 = Math.min(n.a.row, n.b.row), r2 = Math.max(n.a.row, n.b.row);
+    if (c1 < 1 || r1 < 1) throw new XlErr('#REF!');
+    for (let r = r1; r <= r2; r++) for (let c = c1; c <= c2; c++) out.push(ctx.get(c, r));
+    return out;
+  }
+  function flat(args, ctx) {
+    const vals = [];
+    for (const a of args) {
+      if (a.t === 'range') { for (const v of rangeValues(a, ctx)) { if (isErr(v)) throw v; if (typeof v === 'number') vals.push(v); } }
+      else if (a.t === 'ref') { const v = ctx.get(a.col, a.row); if (isErr(v)) throw v; if (typeof v === 'number') vals.push(v); }
+      else vals.push(num(ev(a, ctx)));
+    }
+    return vals;
+  }
+
+  function ev(n, ctx) {
+    switch (n.t) {
+      case 'num': case 'str': case 'bool': return n.v;
+      case 'ref': {
+        if (n.col < 1 || n.row < 1) throw new XlErr('#REF!');
+        const v = ctx.get(n.col, n.row);
+        if (isErr(v)) throw v;
+        return v === undefined || v === null ? 0 : v;
+      }
+      case 'range': throw new XlErr('#VALUE!');
+      case 'pct': return num(ev(n.x, ctx)) / 100;
+      case 'un': return -num(ev(n.x, ctx));
+      case 'bin': {
+        const a = ev(n.l, ctx), b = ev(n.r, ctx);
+        if (['=', '<>', '<', '>', '<=', '>='].indexOf(n.op) >= 0) {
+          let x = a, y = b;
+          if (typeof x === 'string' && typeof y === 'string') { x = x.toLowerCase(); y = y.toLowerCase(); }
+          else if (typeof x === 'string' || typeof y === 'string') { if (n.op === '=') return false; if (n.op === '<>') return true; throw new XlErr('#VALUE!'); }
+          switch (n.op) { case '=': return x === y; case '<>': return x !== y; case '<': return x < y; case '>': return x > y; case '<=': return x <= y; default: return x >= y; }
+        }
+        const x = num(a), y = num(b);
+        switch (n.op) {
+          case '+': return x + y; case '-': return x - y; case '*': return x * y;
+          case '/': if (y === 0) throw new XlErr('#DIV/0!'); return x / y;
+          case '^': return Math.pow(x, y);
+        }
+        throw new XlErr('#VALUE!');
+      }
+      case 'fn': {
+        const f = n.name, A = n.args;
+        switch (f) {
+          case 'SUM': return flat(A, ctx).reduce((s, v) => s + v, 0);
+          case 'AVERAGE': { const v = flat(A, ctx); if (!v.length) throw new XlErr('#DIV/0!'); return v.reduce((s, x) => s + x, 0) / v.length; }
+          case 'MIN': { const v = flat(A, ctx); return v.length ? Math.min.apply(null, v) : 0; }
+          case 'MAX': { const v = flat(A, ctx); return v.length ? Math.max.apply(null, v) : 0; }
+          case 'COUNT': return flat(A, ctx).length;
+          case 'ABS': return Math.abs(num(ev(A[0], ctx)));
+          case 'ROUND': { const d = A[1] ? num(ev(A[1], ctx)) : 0; const k = Math.pow(10, d); return Math.round(num(ev(A[0], ctx)) * k) / k; }
+          case 'IF': {
+            if (A.length < 2) throw new XlErr('#N/A');
+            const c = ev(A[0], ctx);
+            const truthy = typeof c === 'string' ? (() => { throw new XlErr('#VALUE!'); })() : !!c;
+            if (truthy) return ev(A[1], ctx);
+            return A.length > 2 ? ev(A[2], ctx) : false;
+          }
+          case 'AND': return A.every((a) => !!ev(a, ctx));
+          case 'OR': return A.some((a) => !!ev(a, ctx));
+          case 'NOT': return !ev(A[0], ctx);
+        }
+        throw new XlErr('#NAME?');
+      }
+    }
+    throw new XlErr('#VALUE!');
+  }
+  function evaluate(ast, ctx) { try { return ev(ast, ctx); } catch (e) { if (isErr(e)) return e; throw e; } }
+
+  /* Sheet */
+  function Sheet() { this.cells = {}; this.cache = {}; this.visiting = {}; }
+  Sheet.prototype.key = (c, r) => c + ',' + r;
+  Sheet.prototype.set = function (a, val) {
+    const { col, row } = typeof a === 'string' ? addr(a) : a; const k = col + ',' + row;
+    this.cache = {};
+    if (typeof val === 'string' && val[0] === '=') this.cells[k] = { f: val, ast: parse(val) };
+    else this.cells[k] = { v: val };
+  };
+  Sheet.prototype.get = function (col, row) {
+    const k = col + ',' + row, c = this.cells[k];
+    if (!c) return undefined;
+    if ('v' in c) return c.v;
+    if (k in this.cache) return this.cache[k];
+    if (this.visiting[k]) return new XlErr('#CIRC!');
+    this.visiting[k] = true;
+    const v = evaluate(c.ast, this);
+    this.visiting[k] = false;
+    this.cache[k] = v;
+    return v;
+  };
+  Sheet.prototype.clone = function () { const s = new Sheet(); s.cells = JSON.parse(JSON.stringify(this.cells)); return s; };
+  Sheet.prototype.value = function (a) { const x = addr(a); return this.get(x.col, x.row); };
+
+  /* Copy / translate: relative parts move, $ parts stay. */
+  function shift(n, dc, dr) {
+    switch (n.t) {
+      case 'ref': return { t: 'ref', col: n.ac ? n.col : n.col + dc, row: n.ar ? n.row : n.row + dr, ac: n.ac, ar: n.ar };
+      case 'range': return { t: 'range', a: shift(n.a, dc, dr), b: shift(n.b, dc, dr) };
+      case 'bin': return { t: 'bin', op: n.op, l: shift(n.l, dc, dr), r: shift(n.r, dc, dr) };
+      case 'un': return { t: 'un', op: n.op, x: shift(n.x, dc, dr) };
+      case 'pct': return { t: 'pct', x: shift(n.x, dc, dr) };
+      case 'fn': return { t: 'fn', name: n.name, args: n.args.map((a) => shift(a, dc, dr)) };
+      default: return n;
+    }
+  }
+
+  const PREC = { '=': 1, '<>': 1, '<': 1, '>': 1, '<=': 1, '>=': 1, '+': 2, '-': 2, '*': 3, '/': 3, '^': 4 };
+  function refText(r) { if (r.col < 1 || r.row < 1) return '#REF!'; return (r.ac ? '$' : '') + numToCol(r.col) + (r.ar ? '$' : '') + r.row; }
+  function fmtNum(v) { return String(Math.round(v * 1e9) / 1e9); }
+  function print(n, parentPrec, isRight) {
+    switch (n.t) {
+      case 'num': return fmtNum(n.v);
+      case 'str': return '"' + n.v + '"';
+      case 'bool': return n.v ? 'TRUE' : 'FALSE';
+      case 'ref': return refText(n);
+      case 'range': return refText(n.a) + ':' + refText(n.b);
+      case 'pct': return print(n.x, 6) + '%';
+      case 'un': return '-' + print(n.x, 5);
+      case 'fn': return n.name + '(' + n.args.map((a) => print(a, 0)).join(',') + ')';
+      case 'bin': {
+        const p = PREC[n.op];
+        const s = print(n.l, p, false) + n.op + print(n.r, p, true);
+        const need = (parentPrec || 0) > p || ((parentPrec || 0) === p && isRight && (n.op === '-' || n.op === '/' || n.op === '^' || PREC[n.op] === 1 ? true : false));
+        return need ? '(' + s + ')' : s;
+      }
+    }
+    return '?';
+  }
+  const toText = (ast) => '=' + print(ast, 0, false);
+
+  function collect(n, fn, out) {
+    out = out || [];
+    fn(n, out);
+    if (n.t === 'bin') { collect(n.l, fn, out); collect(n.r, fn, out); }
+    else if (n.t === 'un' || n.t === 'pct') collect(n.x, fn, out);
+    else if (n.t === 'fn') n.args.forEach((a) => collect(a, fn, out));
+    return out;
+  }
+  const refsOf = (ast) => collect(ast, (n, o) => { if (n.t === 'ref') o.push(n); else if (n.t === 'range') { o.push(n.a); o.push(n.b); } });
+  const litsOf = (ast) => collect(ast, (n, o) => { if (n.t === 'num') o.push(n.v); });
+  const hasNode = (ast, pred) => collect(ast, (n, o) => { if (pred(n)) o.push(1); }).length > 0;
+
+  function close(a, b) {
+    if (typeof a === 'number' && typeof b === 'number') return Math.abs(a - b) <= 1e-6 * Math.max(1, Math.abs(a), Math.abs(b));
+    if (typeof a === 'string' && typeof b === 'string') return a.toLowerCase() === b.toLowerCase();
+    return a === b;
+  }
+  function show(v) {
+    if (isErr(v)) return v.code;
+    if (typeof v === 'boolean') return v ? 'TRUE' : 'FALSE';
+    if (typeof v === 'number') return String(Math.round(v * 1e6) / 1e6);
+    return String(v);
+  }
+
+  /* Two formulas are the same "copyable" formula if they use identical references (including $) and agree on random data. */
+  function sameFormula(a, b) {
+    const key = (r) => refText(r);
+    const ra = refsOf(a).map(key).sort().join('|'), rb = refsOf(b).map(key).sort().join('|');
+    if (ra !== rb) return false;
+    for (let seed = 1; seed <= 4; seed++) {
+      const ctx = { get: (c, r) => ((c * 7919 + r * 104729 + seed * 1299709) % 97) / 7 + 1 };
+      if (!close(evaluate(a, ctx), evaluate(b, ctx))) return false;
+    }
+    return true;
+  }
+
+  /* Order-of-operations steps for a formula with values. */
+  function steps(ast, ctx) {
+    const out = [];
+    (function walk(n) {
+      if (n.t === 'bin') {
+        const a = walk(n.l), b = walk(n.r); const v = evaluate({ t: 'bin', op: n.op, l: { t: 'num', v: a }, r: { t: 'num', v: b } }, ctx);
+        out.push(fmtNum(a) + ' ' + (n.op === '^' ? '^' : n.op) + ' ' + fmtNum(b) + ' = ' + show(v)); return v;
+      }
+      if (n.t === 'un') { return -walk(n.x); }
+      if (n.t === 'ref') return ev(n, ctx);
+      if (n.t === 'num') return n.v;
+      if (n.t === 'fn') { const v = evaluate(n, ctx); out.push(n.name + ' = ' + show(v)); return v; }
+      return evaluate(n, ctx);
+    })(ast);
+    return out;
+  }
+
+  /* Grading. spec = { origin:{col,row}, ref:ast, scen:[{name,sheet}], fill:{dc,dr,n}|null,
+       inputs:[{label,addr,value}], allowLits:[], needRange, accept100, ifMsg, lossName } */
+  function grade(spec, text) {
+    const res = { level: 'fail', msgs: [], notes: [], expected: null, got: null };
+    let ast;
+    try { ast = parse(text); } catch (e) { res.msgs.push(e.message); res.kind = 'syntax'; return res; }
+    const o = spec.origin;
+    const base = spec.scen[0].sheet;
+    res.expected = evaluate(spec.ref, base); res.got = evaluate(ast, base);
+
+    const refs = refsOf(ast);
+    if (refs.some((r) => r.col === o.col && r.row === o.row)) { res.msgs.push('This formula refers to its own cell. That is a circular reference.'); return res; }
+
+    const allow = (spec.allowLits || [0, 1]);
+    const lits = litsOf(ast).filter((v) => allow.indexOf(v) < 0 && !(spec.accept100 && v === 100));
+    const hasPct = hasNode(ast, (n) => n.t === 'pct');
+    const uses100 = spec.accept100 && litsOf(ast).indexOf(100) >= 0;
+
+    const fills = !spec.fill ? [] : (Array.isArray(spec.fill) ? spec.fill : [spec.fill]);
+    const offs = [];
+    fills.forEach((f) => { for (let k = 1; k <= f.n; k++) offs.push([f.dc * k, f.dr * k]); });
+    function atTarget(sc, dc, dr) {
+      const a = evaluate(shift(spec.ref, dc, dr), sc.sheet), b = evaluate(shift(ast, dc, dr), sc.sheet);
+      return { a, b, ok: close(a, b) };
+    }
+    let baseFail = false; const fillFail = []; const scenFail = [];
+    spec.scen.forEach((sc, i) => {
+      const r0 = atTarget(sc, 0, 0);
+      if (!r0.ok) { if (i === 0) baseFail = true; else scenFail.push(sc); }
+    });
+    if (offs.length && !baseFail) {
+      offs.forEach((o) => { if (!atTarget(spec.scen[0], o[0], o[1]).ok) fillFail.push(o); });
+    }
+    const dirWord = () => {
+      const both = fillFail.some((o) => o[0] && o[1]), col = fillFail.some((o) => o[0] && !o[1]), row = fillFail.some((o) => !o[0] && o[1]);
+      if (both || (col && row)) return 'across and down';
+      return col ? 'across' : 'down';
+    };
+
+    function litMsg() {
+      const v = lits[0];
+      const m = (spec.inputs || []).find((x) => close(x.value, v) || close(x.value, v / 100) || close(1 + x.value, v) || close(1 - x.value, v));
+      if (m) return 'The number ' + fmtNum(v) + ' is typed inside your formula. It matches "' + m.label + '" in ' + m.addr + '. Point to that cell instead, and lock it with $ if every copy of the formula uses it.';
+      return 'The number ' + fmtNum(v) + ' is typed inside your formula. Put numbers in their own cells and reference them.';
+    }
+    function refMsgs() {
+      const rr = refsOf(spec.ref), out = [];
+      for (const s of refs) {
+        const r = rr.find((x) => x.col === s.col && x.row === s.row);
+        if (!r) continue;
+        const name = numToCol(s.col) + s.row;
+        if ((r.ac && !s.ac) || (r.ar && !s.ar)) out.push(name + ' has to stay put when the formula is copied. Write it as ' + refText(r) + '.');
+        else if ((!r.ac && s.ac) || (!r.ar && s.ar)) out.push(refText(s) + ' is locked, but it should move when the formula is copied. Remove the $.');
+      }
+      return out;
+    }
+
+    if (baseFail) {
+      if (lits.length) res.msgs.push(litMsg());
+      const g = res.got;
+      const before = res.msgs.length;
+      (spec.traps || []).forEach((tr) => { try { const tv = evaluate(parse(tr.ref), base); if (!close(tv, res.expected) && close(tv, g)) res.msgs.push(tr.msg); } catch (e) { /* ignore */ } });
+      if (res.msgs.length > before) { res.msgs.push('Your formula returns ' + show(g) + ' for the numbers shown. The correct result is ' + show(res.expected) + '.'); return res; }
+      if (isErr(g)) res.msgs.push('Your formula returns ' + g.code + ' here.');
+      else if (ast.t === 'fn' && ast.name === 'IF' && ast.args.length < 3 && g === false) res.msgs.push('Your IF has no third argument, so it returns FALSE when the test fails. Add the value to use when the test is false.');
+      else if (typeof res.expected === 'number' && typeof g === 'number' && res.expected !== 0 && (close(g, res.expected * 100) || close(g * 100, res.expected))) res.msgs.push('Your answer is off by a factor of 100. Check whether you need a fraction or a percent.');
+      else res.msgs.push('Your formula returns ' + show(g) + ' for the numbers shown. The correct result is ' + show(res.expected) + '. Re-read the description for this row and check which cells you used.');
+      return res;
+    }
+    if (fillFail.length) {
+      const m = refMsgs();
+      if (m.length) res.msgs.push('The answer is right in this cell but breaks when copied ' + dirWord() + '.'); else res.msgs.push('The answer is right in this cell but gives a wrong result when copied ' + dirWord() + '.');
+      m.forEach((x) => res.msgs.push(x));
+      if (lits.length) res.msgs.push(litMsg());
+      return res;
+    }
+    if (scenFail.length) {
+      if (lits.length) res.msgs.push(litMsg());
+      else if (spec.edgeMsg && scenFail.some((x) => x.name === 'edge')) res.msgs.push(spec.edgeMsg);
+      else if (spec.lossName && scenFail.some((s) => s.name === spec.lossName)) res.msgs.push(spec.ifMsg || 'The formula fails in an edge case. Test it with a negative number and with a value equal to the limit.');
+      else res.msgs.push('The formula works for the numbers shown but not after the inputs change. A typed number or a wrong cell is the usual cause. Change an input and test.');
+      return res;
+    }
+    // Passed every test
+    res.level = 'pass';
+    if (lits.length) { res.level = 'partial'; res.msgs.push(litMsg()); }
+    if (uses100) { res.level = res.level === 'pass' ? 'pass' : res.level; res.notes.push('Correct, with one note. The 100 is a number typed inside the formula. Leave the result as a fraction and format the cell as a percent instead.'); }
+    if (hasPct && false) res.notes.push('');
+    if (hasNode(ast, (n) => n.t === 'fn' && n.name === 'SUM' && n.args.length === 1 && n.args[0].t === 'bin')) res.notes.push('The SUM here does no work. The arithmetic inside the parentheses already gives the answer. Drop the SUM.');
+    if (spec.needRange && !hasNode(ast, (n) => n.t === 'range')) { res.level = res.level === 'pass' ? 'partial' : res.level; res.notes.push('The value is right, but adding cells one by one means someone must edit the formula whenever a row is added. Use SUM over a range.'); }
+    return res;
+  }
+
+  const E = { XlErr, isErr, colToNum, numToCol, addr, addrText, parse, evaluate, Sheet, shift, toText, refText, refsOf, litsOf, sameFormula, steps, grade, show, close, fmtNum };
+  if (typeof module !== 'undefined' && module.exports) module.exports = E; else root.XL = E;
+})(typeof window !== 'undefined' ? window : globalThis);
+</script>
+<script>(function (root) {
+  'use strict';
+  const S = {
+    refs: { name: 'Cells, addresses, and the formula bar', say: 'A cell address is the column letter then the row number. The Name Box shows the address. The formula bar shows what is inside the cell.', ex: 'C14 is column C, row 14', why: 'You cannot fix a formula you cannot read.', tab: 'foundations' },
+    enter: { name: 'Entering formulas and the fill handle', say: 'Every formula starts with =. Click cells to build references. Drag the fill handle (the small square at the corner of a cell) to copy a formula. Press F4 to cycle through $ locks.', ex: 'Type =, click B5, type *, click B1, press F4 to get $B$1', why: 'Copying is how one formula becomes a whole column.', tab: 'foundations' },
+    funcs: { name: 'Function anatomy and nesting', say: 'A function is a name, parentheses and arguments separated by commas. A function can sit inside another function. Excel works from the inside out.', ex: '=ROUND(SUM(B2:B5),0)', why: 'IF and the lookup functions follow this pattern.', tab: 'foundations' },
+    errvals: { name: 'Error values', say: '#DIV/0! means divide by zero. #REF! means a referenced cell was deleted. #NAME? means Excel does not recognize a name, often a typo. #VALUE! means the wrong type of data. #N/A means a lookup found nothing.', ex: '=SUMM(B2:B5) gives #NAME?', why: 'The error tells you where to look.', tab: 'foundations' },
+    display: { name: 'Display vs stored value', say: 'Formatting changes how a value looks. It does not change the number stored in the cell. Formulas use the stored value.', ex: '0.256 shown as 26% is still 0.256', why: 'Rounding by format can make a total look off by a penny.', tab: 'foundations' },
+    opsorder: { name: 'Order of operations', say: 'Parentheses first. Then exponents. Then multiply and divide, left to right. Then add and subtract, left to right.', ex: '=A1+B1*C1 multiplies B1 and C1 first', why: 'The wrong order gives a wrong answer and Excel shows no error.', tab: 'formulas' },
+    inputs: { name: 'Inputs in cells, no numbers in formulas', say: 'Anything you might change goes in its own cell. Formulas point at that cell.', ex: '=B5*$B$1 instead of =B5*0.08', why: 'One change updates every result. This is design goal 3.', tab: 'foundations' },
+    texnum: { name: 'Text and numbers', say: 'Excel does math only on numbers. A cell holding "2 cubic feet" is text. Put the 2 in one cell and the unit in the next. Numbers right align. Text left aligns.', ex: '2 | cubic feet', why: 'Alignment is a clue. A number that hugs the left edge is probably text.', tab: 'foundations' },
+    relabs: { name: 'Absolute and relative references', say: 'No $ means the reference moves when you copy. A $ locks the part it sits in front of. $B$6 locks column and row. $A3 locks the column only. B$2 locks the row only.', ex: '=B14*(1+$B$6)', why: 'Lock the one cell every copy needs, like a rate. Leave the others free so they follow the row or year.', tab: 'formulas' },
+    pctchg: { name: 'Percent change and percent of total', say: 'Percent change is the change divided by where you started. Percent of total is the part divided by the total, with the total locked.', ex: '=(C2-B2)/B2 and =B3/$B$7', why: 'Dividing by the wrong cell is the most common mistake.', tab: 'formulas' },
+    growth: { name: 'Growth projections', say: 'Next year equals this year times one plus the rate. A fixed dollar increase is added instead.', ex: '=B6*(1+$B$3) and =B6+$B$2', why: 'The same pattern drives revenue, savings, and costs.', tab: 'formulas' },
+    sumrange: { name: 'SUM and ranges', say: 'SUM adds a range. A range beats a chain of plus signs, because adding a row then needs little change.', ex: '=SUM(B3:B8) and =SUM(B3:B5,B9)', why: 'A SUM wrapped around one subtraction does nothing.', tab: 'foundations' },
+    minmax: { name: 'MIN, MAX, AVERAGE, COUNT', say: 'MAX finds the largest value. MIN finds the smallest. AVERAGE gives the mean. COUNT counts numbers. COUNTA counts anything not empty.', ex: '=MAX(B3:B8)-MIN(B3:B8)', why: 'These are quick sanity checks that also help you validate a model.', tab: 'formulas' },
+    ifx: { name: 'IF statements', say: 'IF asks a yes or no question. If yes, it returns the second part. If no, it returns the third part. Text results go in quotes.', ex: '=IF(B21>0,B21*$B$5,0)', why: 'Read it aloud. If B21 is greater than zero, multiply by the rate. Otherwise zero.', tab: 'iflookup' },
+    lookup: { name: 'VLOOKUP, HLOOKUP, XLOOKUP', say: 'VLOOKUP: what to find, where to look, which column, exact or not. HLOOKUP: the same, but across a row. XLOOKUP: what to find, where to look, what to return.', ex: '=VLOOKUP(A2,$H$2:$I$92,2,FALSE)', why: 'Lock the table with $. Use FALSE for exact matches.', tab: 'iflookup' },
+    fmt: { name: 'Number formatting', say: 'Format changes how a value looks, not what it is. Accounting lines up the $ at the left edge and shows negatives in parentheses. Currency keeps the $ next to the number.', ex: '0.25 shown as 25%', why: 'Readable models get used.', tab: 'foundations' },
+    fmtools: { name: 'Format Painter, Flash Fill, conditional formatting', say: 'Format Painter copies a look. Flash Fill fills a text pattern from your examples. Conditional formatting colors cells by a rule.', ex: 'Garman, Mark becomes Mark Garman', why: 'Pick the tool that fits the job.', tab: 'foundations' },
+    design: { name: 'Design goals and validation', say: 'Goal 1: get the math right. Goal 2: make it readable, usable, understandable. Goal 3: make it flexible. Then test with reasonable, actual, and extreme values.', ex: 'Never trust your model', why: 'A model nobody tested is a guess.', tab: 'itdesign' },
+    sim: { name: 'Simulation and decision variables', say: 'A simulation model lets you ask what if without touching the real world. Decision variables are yours to set. Uncontrollables are not. Outcomes are what the model calculates.', ex: 'Your price is a decision variable. A competitor price is an uncontrollable. Profit is an outcome.', why: 'Real experiments can be costly, slow, risky, or impossible.', tab: 'whatif' },
+    whatif: { name: 'Goal Seek, Data Table, Scenario Manager', say: 'One changing input: Goal Seek. Two changing inputs: Data Table. More than two: Scenario Manager.', ex: 'Find the price for a $20,000 profit: Goal Seek', why: 'Knowing which tool fits is half the answer.', tab: 'whatif' },
+    analytics: { name: 'Descriptive, predictive, prescriptive', say: 'Descriptive explains what happened. Predictive forecasts what will happen. Prescriptive recommends what to do.', ex: 'Pivot table: descriptive. Forecast: predictive. Goal Seek: prescriptive.', why: 'Each type has its own Excel tools.', tab: 'analytics' },
+    bi: { name: 'Business intelligence', say: 'BI combines reporting, data exploration, ad hoc queries, and modeling. It turns raw data into information and knowledge.', ex: 'Data warehouse, data mining, dashboards', why: 'OLTP runs daily transactions. OLAP supports analysis.', tab: 'analytics' },
+    pivot: { name: 'Pivot tables and data cubes', say: 'A pivot table sits on a multidimensional data cube. Dimensions classify the data. Measures are the numbers you add up. Slicing removes a dimension.', ex: 'Rows: product. Columns: region. Values: sum of sales.', why: 'Rotate the dimensions to see the data from new angles.', tab: 'analytics' },
+    charts: { name: 'Choosing charts', say: 'Line for trends over time. Pie for parts of one whole. Column to compare groups. Scatter for the relationship between two variables.', ex: 'Net income by year: line', why: 'Never use a pie for time series data.', tab: 'analytics' },
+    it: { name: 'IT and business concepts', say: 'Data are raw facts. Information is data in context. IT changes organizations, individuals, and society.', ex: 'Crowdfunding lowers the cost of a startup', why: 'Managers who cannot judge technology risk irrelevance.', tab: 'itdesign' }
+  };
+  if (typeof module !== 'undefined' && module.exports) module.exports = S; else root.SKILLS = S;
+})(typeof window !== 'undefined' ? window : globalThis);
+</script>
+<script>(function (root) {
+  'use strict';
+  const T = (skills, q, right, wrongs, why) => ({ type: 'mc', skills, q, right, wrongs, why: why || '' });
+  const TF = (skills, q, ans, why) => ({ type: 'mc', skills, q, right: ans ? 'True' : 'False', wrongs: [ans ? 'False' : 'True'], why: why || '', fixed: true });
+  const M = (skills, q, code, parts, choices) => ({ type: 'match', skills, q, code, parts, choices });
+  const C = (skills, q, cats, items) => ({ type: 'classify', skills, q, cats, items });
+  const O = (skills, q, steps) => ({ type: 'order', skills, q, steps });
+
+  const W = (skills, q, cells, origin, ans, opts) => Object.assign({ type: 'write', skills, q, cells, origin, ans, why: '', hint: '' }, opts || {});
+
+  const B = {};
+
+  B.cells = [
+    T(['refs'], 'You click a cell that shows 45,000. Where do you look to tell whether it holds a typed number or a formula?', 'The formula bar', ['The Name Box', 'The worksheet tab', 'The zoom control'], 'The formula bar shows what the cell contains. The Name Box only shows the address.'),
+    T(['refs'], 'What does the Name Box show?', 'The address of the active cell, like C14', ['The formula in the active cell', 'The name of the workbook', 'The sum of the selected cells'], 'C14 means column C, row 14.'),
+    T(['refs'], 'In the address D7, what does the 7 stand for?', 'The row', ['The column', 'The worksheet number', 'The value in the cell'], 'Columns are letters. Rows are numbers.'),
+    T(['texnum'], 'You type 2 cubic feet into a cell, then use that cell in a formula. What goes wrong?', 'Excel treats it as text and will not do arithmetic with it', ['Excel rounds it to 2', 'Excel converts it to 2 automatically', 'Nothing, the formula works'], 'Put the 2 in a cell by itself and the unit in the next cell.'),
+    T(['texnum'], 'A column of dollar amounts is easiest to compare when it is...', 'Right aligned, so the digits and decimals line up', ['Centered', 'Left aligned', 'Aligned any way, it does not matter'], 'Numbers line up by place value when right aligned.'),
+    T(['inputs'], 'A model has the tax rate typed as 0.08 inside twelve formulas. The rate changes to 9%. What is the problem?', 'All twelve formulas need editing. The rate belongs in its own cell, referenced by the formulas', ['Nothing. Excel updates typed numbers automatically', 'Excel will not allow a rate above 8%', 'The formulas must be replaced with typed values'], 'This is the flexibility goal. One input cell means one change.'),
+    T(['inputs'], 'Which cells should hold typed numbers?', 'Inputs and starting data. Anything that can be calculated should be a formula', ['Every cell, so results cannot change', 'Only the totals', 'Only the cells at the top of the sheet'], 'Typed results go stale the moment an input changes.'),
+    T(['inputs', 'design'], 'Why test a model by changing an input?', 'To see whether results update through formulas instead of staying frozen as typed numbers', ['To make the model look busy', 'Because Excel requires it before saving', 'To reset the formatting'], 'A model that responds to inputs is flexible.'),
+    T(['refs'], 'You have a column of unit prices. What is the best advice about a total at the bottom?', 'Leave it out. Adding unit prices has no business meaning', ['Always total every column', 'Total it and make it bold', 'Use COUNT instead'], 'Only total what makes sense. A total of cost per unit is meaningless.'),
+    T(['refs'], 'You scroll down 200 rows and the column headings disappear. Which feature keeps them visible?', 'Freeze Panes', ['Format Painter', 'Flash Fill', 'Goal Seek'], 'Freeze rows or columns so headings stay in view.'),
+    T(['refs'], 'You want to see only the rows for one region. Which feature?', 'Filter', ['Sort', 'Freeze Panes', 'Merge cells'], 'Filtering hides rows that do not match. Sorting only reorders them.'),
+    T(['sumrange'], 'You want the total of B3, B4, B5, and B9. Which formula works?', '=SUM(B3:B5,B9)', ['=SUM(B3,B9)', '=(B3,B4,B5,B9)', '=SUM(B3:B9)'], 'A range plus a single cell, separated by a comma. B3:B9 would also add B6, B7, and B8.'),
+    T(['sumrange'], 'Why is =SUM(B9-E9) a weak formula?', 'The subtraction already does the work, so SUM adds nothing', ['SUM cannot subtract', 'It returns an error', 'It adds B9 twice'], 'Write =B9-E9. Use SUM for ranges.'),
+    T(['minmax'], 'What does COUNT do?', 'Counts cells that contain numbers', ['Adds the numbers', 'Counts every cell that is not empty', 'Counts only text cells'], 'COUNTA counts every cell that is not empty.'),
+    T(['minmax'], 'What does COUNTA do?', 'Counts cells that are not empty', ['Counts only numbers', 'Adds numbers and text', 'Finds the average'], 'COUNT is for numbers only. COUNTA counts any content.'),
+    T(['minmax'], 'Which function finds the highest score in B2:B20?', '=MAX(B2:B20)', ['=TOP(B2:B20)', '=HIGH(B2:B20)', '=SUM(B2:B20)'], 'MAX returns the largest value. MIN returns the smallest.'),
+    T(['minmax'], 'You score candidates on six criteria with weights. What should the weights add up to?', '1, or 100%', ['6', '10', 'Any number works'], 'Weights share out the importance. Together they equal 100%.')
+  ];
+
+  B.fmt = [
+    T(['fmt'], 'Which number format lines the dollar signs up at the left edge of the cell and aligns the decimal points?', 'Accounting', ['Currency', 'Percent', 'General'], 'Accounting pins the $ to the left edge, lines up decimals, shows negatives in parentheses, and shows zeros as a dash.'),
+    T(['fmt'], 'Which format places the $ right next to the number?', 'Currency', ['Accounting', 'Scientific', 'Text'], 'Currency keeps the $ attached to the number. You also choose how negatives look.'),
+    T(['fmt'], 'In Accounting format, how does a loss of 200 usually appear?', '(200), in parentheses', ['-200 in red only', '200 with no sign', '$200 with a plus sign'], 'Parentheses for negatives is the accounting convention. Currency lets you pick red, a minus sign, or parentheses.'),
+    T(['fmt'], 'You type 0.25 and apply the Percent format. What does the cell show, and what does it hold?', 'It shows 25% and still holds 0.25', ['It shows 0.25% and holds 25', 'It shows 25 and holds 0.25', 'It shows 25% and holds 25'], 'Formatting changes the display, not the value.'),
+    T(['fmt'], 'A model uses blank columns between sections to add space. What should you do instead?', 'Delete them and widen the columns as needed', ['Add more blank columns', 'Merge all the cells', 'Hide the model'], 'Blank rows can group sections. Blank columns make it hard to tell which column something is in.'),
+    T(['fmt'], 'Which statement about formatting fits the course?', 'Format to help the reader. Too little is hard to read and too much distracts', ['More formatting is always better', 'No formatting is always better', 'Colors matter more than the math'], 'Readable and understandable is design goal 2.'),
+    T(['fmt'], 'Lab 2 asked for the title to be centered over the model. Which method did it ask for?', 'Center Across Selection, under Format Cells and Alignment', ['Merge and Center', 'Typing spaces before the title', 'Placing the title in every column'], 'Center Across Selection keeps the cells separate.')
+  ];
+
+  B.fmtools = [
+    C(['fmtools'], 'Match each job to the best tool.', ['Conditional Formatting', 'Format Painter', 'Flash Fill'], [
+      ['Color every overdue date red, and keep it updating', 'Conditional Formatting'],
+      ['Make 12 headers match the look of one you already styled', 'Format Painter'],
+      ['Turn "Garman, Mark" into "Mark Garman" for 200 rows from one example', 'Flash Fill'],
+      ['Highlight the highest profit in a data table', 'Conditional Formatting'],
+      ['Copy the bold white on maroon style of a header to other cells', 'Format Painter'],
+      ['Pull first names out of a column of full names', 'Flash Fill'],
+      ['Turn negative numbers red whenever they appear', 'Conditional Formatting']]),
+    T(['fmtools'], 'What does Format Painter copy?', 'Only the formatting. Not the contents', ['The value and the formula', 'Only the formula', 'Only the number format'], 'Fonts, fills, borders, number format, and alignment travel. The data does not.'),
+    T(['fmtools'], 'What is a limit of Flash Fill?', 'Its results are typed values. They do not update when the source changes', ['It only works on numbers', 'It needs a macro', 'It cannot handle text'], 'For results that must update, use a formula.'),
+    T(['fmtools'], 'You use Flash Fill to extract first names. Tomorrow someone fixes a typo in a full name. What happens to the extracted first name?', 'Nothing. It stays as it was', ['It updates automatically', 'Excel shows an error', 'The whole column clears'], 'Flash Fill writes values, not formulas.'),
+    T(['fmtools'], 'When does conditional formatting change how a cell looks?', 'When the cell value meets a rule you set', ['Only when you click the cell', 'Only when the file opens', 'Only when you press F9'], 'It reacts to the data, so highlights move when the numbers change.'),
+    T(['fmtools'], 'How does the Session 5 data table highlight the best profit?', 'A conditional formatting rule on the top 1 value', ['Sorting the table', 'Goal Seek', 'Freeze panes'], 'Home, Conditional Formatting, top and bottom rule, enter 1, pick a fill color.'),
+    T(['fmtools'], 'What is the difference between Format Painter and conditional formatting?', 'Format Painter copies a look once, by hand. Conditional formatting applies a look automatically by rule', ['They are the same feature', 'Format Painter changes values', 'Conditional formatting only works on text'], 'One is manual and happens once. The other is rule driven and ongoing.'),
+    T(['fmtools'], 'You need the first name from "Garman, Mark" in 200 rows and you do not want formulas. Which tool?', 'Flash Fill', ['Format Painter', 'Conditional Formatting', 'Goal Seek'], 'Type one or two examples. Excel spots the pattern and fills the rest.'),
+    T(['fmtools'], 'When would you choose a formula over Flash Fill to split names?', 'When the source names will change and the result must update', ['When the names are already sorted', 'When the file is small', 'When you want colors'], 'Formulas recalculate. Flash Fill does not.')
+  ];
+
+  B.ifread = [
+    M(['ifx'], 'Label each part of this IF.', '=IF(B21>0,B21*$B$5,0)', [['B21>0', 'Logical test'], ['B21*$B$5', 'Value if true'], ['0', 'Value if false']], ['Logical test', 'Value if true', 'Value if false', 'Lookup value']),
+    T(['ifx'], 'What does =IF(B21>0,B21*$B$5,0) return when B21 is -500?', '0', ['-500', '-500 times the rate', 'FALSE'], 'The test B21>0 is false, so the third part is used.'),
+    T(['ifx'], 'Read =IF(C5>=100,"Met","Short") in words.', 'If C5 is at least 100, show Met. Otherwise show Short', ['If C5 is over 100, show Short', 'Show Met in every row', 'Add 100 to C5'], 'Test, then the true result, then the false result.'),
+    T(['ifx'], 'Text returned by an IF must be...', 'In quotes, like "Short"', ['In brackets', 'Capitalized', 'In its own cell with a $'], 'Without quotes, Excel looks for a name or a cell.'),
+    T(['ifx'], '=IF(C5>=100,"Met","Short") with C5 equal to 100 returns...', 'Met', ['Short', 'FALSE', '100'], '>= includes the boundary.'),
+    T(['ifx'], '=IF(C5>100,"Met","Short") with C5 equal to 100 returns...', 'Short', ['Met', 'FALSE', '100'], '> excludes the boundary. A value of exactly 100 is not greater than 100.'),
+    T(['ifx'], 'What does =IF(A1>5,1) return when A1 is 3?', 'FALSE', ['0', '1', 'An error'], 'With no third part, a failed test returns FALSE.'),
+    T(['ifx'], 'The grace period is in B1 and the fee per day is in B2. Days late are in B5. Which formula charges the fee only for days past the grace period?', '=IF(B5>$B$1,(B5-$B$1)*$B$2,0)', ['=IF(B5<$B$1,(B5-$B$1)*$B$2,0)', '=IF(B5>$B$1,B5*$B$2)', '=IF(B5>$B$1,(B5-$B$1)*$B$2)'], 'Test whether days late exceed the grace period. If so, charge for the extra days. Otherwise zero. Leaving out the false value would return FALSE.'),
+    T(['ifx', 'inputs'], 'Why put the limit of an IF in its own cell, like $B$1, instead of typing 100 into the formula?', 'Changing the limit then takes one edit, and every formula follows', ['Excel rejects numbers in IF tests', 'It makes the IF run faster', 'It prevents negative results'], 'Flexibility. A typed number hides inside every copy of the formula.'),
+    C(['ifx'], 'Can an IF return this?', ['Yes', 'No'], [['A number', 'Yes'], ['Text in quotes', 'Yes'], ['The result of a calculation', 'Yes'], ['FALSE, when the false part is left out', 'Yes'], ['A chart', 'No'], ['A new worksheet', 'No']]),
+    T(['ifx'], 'Which test checks that earnings are positive?', 'B10>0', ['B10<0', 'B10<=0', 'B10=0'], 'Positive means greater than zero.'),
+    T(['ifx'], 'A bonus applies only when sales exceed the quota in $B$1. Sales are in B5. Which test fits?', 'B5>$B$1', ['B5<$B$1', 'B5=$B$1', 'B5<=$B$1'], 'Exceeds means strictly greater than.'),
+    T(['ifx'], 'In an IF, which part runs when the test is true?', 'The second part', ['The first part', 'The third part', 'Both parts'], 'Test, true result, false result.')
+  ];
+
+  B.vlookup = [
+    M(['lookup'], 'Label each argument of this VLOOKUP.', '=VLOOKUP(A2,$H$2:$I$92,2,FALSE)', [['A2', 'Lookup value'], ['$H$2:$I$92', 'Table array'], ['2', 'Column index number'], ['FALSE', 'Exact match']], ['Lookup value', 'Table array', 'Column index number', 'Exact match', 'Return array', 'Row index number']),
+    T(['lookup'], 'Which is the VLOOKUP argument order?', 'Lookup value, table array, column index number, match type', ['Table array, lookup value, match type, column index number', 'Lookup value, column index number, table array, match type', 'Column index number, lookup value, table array, match type'], 'A memory aid: what, where, which column, how exact.'),
+    T(['lookup'], 'In VLOOKUP, where must the lookup value be found?', 'In the first column of the table array', ['In any column of the table array', 'In the last column', 'In the row above the table'], 'VLOOKUP searches the leftmost column of the range and returns from a column to its right.'),
+    T(['lookup'], 'In =VLOOKUP(A2,$H$2:$I$92,2,FALSE), what does the 2 mean?', 'Return the value from the second column of the table array', ['Return the value from column B', 'Look in row 2', 'Find the second match'], 'The index counts columns inside the table array, starting at 1.'),
+    T(['lookup'], 'Why is the table array written $H$2:$I$92 and not H2:I92?', 'So the table stays fixed when the formula is copied down', ['Because VLOOKUP requires dollar signs', 'To make the lookup faster', 'To search backwards'], 'A relative range would slide down and miss the table. It is the same rule as locking a rate cell.'),
+    T(['lookup'], 'Which fourth argument gives only exact matches?', 'FALSE', ['TRUE', '1', 'Any number'], 'FALSE means exact match. TRUE or blank allows an approximate match, which assumes the first column is sorted from smallest to largest.'),
+    T(['lookup'], 'The fourth argument is TRUE or left blank. What kind of match is that?', 'Approximate match', ['Exact match', 'Reverse match', 'Case sensitive match'], 'It suits bands like score ranges, and it needs the first column sorted ascending.'),
+    T(['lookup'], 'You want a letter grade from a score using a table of score bands. Which match type fits?', 'Approximate match', ['Exact match', 'No match type works', 'Case sensitive match'], 'A score of 78 is not listed. Approximate match finds the band it falls in.'),
+    T(['lookup'], 'A VLOOKUP with exact match returns #N/A. What is the most likely cause?', 'The lookup value is not in the first column of the table', ['The table is too large', 'The workbook is protected', 'The result is negative'], '#N/A means not found.'),
+    T(['lookup'], 'The table array is $D$2:$H$50 and the column index number is 3. Which column does VLOOKUP return from?', 'Column F', ['Column C', 'Column D', 'Column H'], 'D is 1, E is 2, F is 3.'),
+    TF(['lookup'], 'VLOOKUP can return a value from a column to the left of the lookup column.', false, 'The lookup column must be the first column of the table array. XLOOKUP removes that limit.'),
+    T(['lookup'], 'Customer IDs run down the first column of a table, with names beside them. Which classic function fits?', 'VLOOKUP', ['HLOOKUP', 'COUNT', 'IF'], 'VLOOKUP searches down a column.')
+  ];
+
+  B.xlookup = [
+    M(['lookup'], 'Label each argument of this HLOOKUP.', '=HLOOKUP(A2,$H$1:$CT$2,2)', [['A2', 'Lookup value'], ['$H$1:$CT$2', 'Table array'], ['2', 'Row index number']], ['Lookup value', 'Table array', 'Row index number', 'Column index number', 'Exact match']),
+    T(['lookup'], 'The customer IDs run across row 1 and the names sit in row 2. Which function fits?', 'HLOOKUP', ['VLOOKUP', 'IF', 'COUNT'], 'H is for horizontal. It searches across a row.'),
+    T(['lookup'], 'What is the difference between VLOOKUP and HLOOKUP?', 'VLOOKUP searches down a column. HLOOKUP searches across a row', ['VLOOKUP is for numbers and HLOOKUP is for text', 'VLOOKUP is the newer one', 'There is no difference'], 'Vertical versus horizontal.'),
+    M(['lookup'], 'Label each argument of this XLOOKUP.', '=XLOOKUP(A2,$H$2:$H$92,$I$2:$I$92,"Not found")', [['A2', 'Lookup value'], ['$H$2:$H$92', 'Lookup array'], ['$I$2:$I$92', 'Return array'], ['"Not found"', 'If not found']], ['Lookup value', 'Lookup array', 'Return array', 'If not found', 'Column index number', 'Match mode']),
+    T(['lookup'], 'Which is the XLOOKUP argument order?', 'Lookup value, lookup array, return array, if not found, match mode, search mode', ['Lookup value, table array, column index number, match type', 'Return array, lookup array, lookup value', 'Lookup array, lookup value, return array, if not found'], 'The last three are optional.'),
+    T(['lookup'], 'Which is a real advantage of XLOOKUP over VLOOKUP?', 'It needs no column index number, so inserting a column does not break it', ['It always runs faster', 'It only works on numbers', 'It sorts the table first'], 'You point at the return column directly.'),
+    T(['lookup'], 'In XLOOKUP, what does the third argument hold?', 'The return array, the cells to return a value from', ['The lookup value', 'The column index number', 'The match mode'], 'The second argument says where to look. The third says what to return.'),
+    T(['lookup'], 'What does the fourth XLOOKUP argument do?', 'Gives the value to show if there is no match', ['Sets the search direction', 'Picks the column', 'Sorts the results'], 'Without it, a missing value shows #N/A.'),
+    T(['lookup'], 'Can XLOOKUP return a value from a column to the left of the lookup column?', 'Yes', ['No, never', 'Only with a helper column', 'Only for text'], 'The lookup array and return array are separate ranges.'),
+    T(['lookup'], 'Score bands start at 0, 60, 70, 80, and 90. You want a grade for each score. Which XLOOKUP setting finds the exact value or the next smaller one?', 'Match mode -1', ['Match mode 0', 'Search mode 1', 'The if not found argument'], 'Match mode 0 is exact only. -1 is exact or the next smaller item.')
+  ];
+
+  B.sim = [
+    T(['sim'], 'Why do we build simulation models?', 'To ask what if questions without experimenting on the real world', ['Because spreadsheets are faster than people', 'To avoid using formulas', 'To replace all forecasts'], 'Real experiments can be difficult, expensive, slow, dangerous, or impossible.'),
+    C(['sim'], 'Sort each item in the sock business model.', ['Decision variable', 'Uncontrollable', 'Outcome'], [['The price you charge', 'Decision variable'], ['The price your biggest competitor charges', 'Uncontrollable'], ['How many socks you make', 'Decision variable'], ['The tax rate', 'Uncontrollable'], ['Your profit', 'Outcome'], ['Your market share', 'Outcome']]),
+    C(['sim'], 'Sort each item in the stock portfolio model.', ['Decision variable', 'Uncontrollable', 'Outcome'], [['Units held', 'Decision variable'], ['Purchase price', 'Decision variable'], ['Current stock price', 'Uncontrollable'], ['Gain or loss', 'Outcome'], ['Value of the holding', 'Outcome']]),
+    C(['sim'], 'Sort each item in the Ram Widget model.', ['Decision variable', 'Uncontrollable', 'Outcome'], [['Marketing increase', 'Decision variable'], ['Admin spending', 'Decision variable'], ['Sales growth', 'Uncontrollable'], ['Tax rate', 'Uncontrollable'], ['COGS growth', 'Uncontrollable'], ['Net income', 'Outcome'], ['Earnings before taxes', 'Outcome'], ['Gross profit', 'Outcome']]),
+    T(['sim'], 'What is a decision variable?', 'An input you control, also called a controllable', ['An input outside your control', 'A result the model calculates', 'A typed number inside a formula'], 'You choose it. The model shows what happens.'),
+    T(['sim'], 'What is an uncontrollable?', 'An input outside your control, like a competitor\'s price', ['A value you set freely', 'The final result', 'A formula'], 'You can only test what if it moves.'),
+    T(['sim'], 'A startup wants to find the best price for a cereal. Why use a model instead of a real price experiment?', 'A real experiment could be risky, slow, or costly', ['Cereal cannot be priced', 'Surveys are illegal', 'Excel replaces all market data'], 'Surveys, test markets, and real experiments each have a downside. The model lets you manipulate the model instead of the real world.'),
+    T(['sim'], 'A simulation model is best described as...', 'A mathematical representation of a business situation used to ask what if questions', ['A list of past sales', 'A chart of trends', 'A database'], 'Decision variables and uncontrollables go in. Outcomes come out.')
+  ];
+
+  B.goalseek = [
+    M(['whatif'], 'Net income sits in E22. The marketing increase sits in B8. You want net income to equal 50000 by changing the marketing increase. Fill in the Goal Seek boxes.', '', [['Set cell', 'E22'], ['To value', '50000'], ['By changing cell', 'B8']], ['E22', '50000', 'B8', 'B22']),
+    M(['whatif'], 'Profit sits in D9. The price sits in B3. You want profit to equal 2000 by changing the price. Fill in the Goal Seek boxes.', '', [['Set cell', 'D9'], ['To value', '2000'], ['By changing cell', 'B3']], ['D9', '2000', 'B3', 'C9']),
+    T(['whatif'], 'What must the Set cell contain?', 'A formula, the result you want to control', ['A typed number', 'The input you want Excel to change', 'Text'], 'Goal Seek works backward from a formula result.'),
+    T(['whatif'], 'The By changing cell must be...', 'An input cell with a typed value that the Set cell depends on', ['The Set cell itself', 'A cell holding a formula', 'Any empty cell'], 'Excel adjusts that input until the Set cell reaches the target.'),
+    T(['whatif'], 'How many inputs does Goal Seek change at once?', 'One', ['Two', 'Three', 'Any number'], 'More inputs call for a Data Table or Scenario Manager.'),
+    O(['whatif'], 'Put the Goal Seek steps in order.', ['Open the What If Analysis menu on the Data tab', 'Choose Goal Seek', 'Enter the Set cell', 'Enter the To value', 'Enter the By changing cell', 'Click OK']),
+    T(['whatif'], 'After Goal Seek finds an answer, what has happened to your input cell?', 'It now holds the value Goal Seek found', ['Nothing changed in the sheet', 'Excel saved a copy first', 'The formula cell was overwritten'], 'The By changing cell is updated in place. Undo or retype to go back.')
+  ];
+
+  B.datatable = [
+    T(['whatif'], 'How many changing inputs does a two way Data Table handle?', 'Two', ['One', 'Three or more', 'None'], 'One across the top, one down the side.'),
+    T(['whatif'], 'In a Data Table, what goes in the top left corner where the row and column meet?', 'A reference to the result cell, like the profit', ['A typed number', 'The price', 'A label only'], 'The table needs to know which result to show for each pair.'),
+    T(['whatif'], 'Prices run down the left column and quantities run across the top. Which input goes in the Column input cell?', 'The price cell', ['The quantity cell', 'The profit cell', 'The top left cell'], 'Values listed down the column are fed into the column input cell.'),
+    T(['whatif'], 'Prices run down the left column and quantities run across the top. Which input goes in the Row input cell?', 'The quantity cell', ['The price cell', 'The profit cell', 'The tax rate cell'], 'Values listed across the row are fed into the row input cell.'),
+    T(['whatif'], 'What is a Data Table good for?', 'Seeing a result for many combinations of two inputs at once', ['Finding one input that hits a target', 'Saving named plans', 'Formatting a chart'], 'Example: profit for every price and quantity pair.'),
+    T(['whatif'], 'After building a profit Data Table, how do you find the best combination fast?', 'Highlight the top value with conditional formatting', ['Delete the other cells', 'Merge the cells', 'Run Goal Seek on every cell'], 'Find the max of the table, or use a top 1 rule in conditional formatting.'),
+    O(['whatif'], 'Put the Data Table steps in order.', ['Lay out prices down a column and quantities across a row', 'Put a reference to the profit cell in the corner', 'Select the whole table', 'Open What If Analysis and choose Data Table', 'Enter the row and column input cells', 'Click OK'])
+  ];
+
+  B.scenario = [
+    T(['whatif'], 'What does Scenario Manager let you do?', 'Save named sets of input values and compare them side by side', ['Find one input that hits a target', 'Fill a grid for two inputs', 'Pick a chart type'], 'Example: Best case, Base case, Worst case.'),
+    T(['whatif'], 'Where does the Scenario Summary appear?', 'On a new worksheet tab', ['In a pop up that disappears', 'Inside the changing cells', 'In the formula bar'], 'The summary table lists each scenario and the result cell.'),
+    O(['whatif'], 'Put the Scenario Manager steps in order.', ['Open What If Analysis and choose Scenario Manager', 'Click Add and name the scenario', 'Pick the changing cells', 'Enter the values for that scenario', 'Click Summary and choose the result cell']),
+    T(['whatif'], 'In Scenario Summary, what is the result cell?', 'The output you want compared across scenarios, like profit', ['The first input', 'The scenario name', 'The cell with the longest formula'], 'You choose it when you click Summary.'),
+    T(['whatif'], 'Scenario Manager suits how many changing inputs?', 'More than two', ['Exactly one', 'Exactly two', 'None'], 'Each scenario can set many changing cells.')
+  ];
+
+  B.whichtool = [
+    C(['whatif'], 'Pick the tool for each job.', ['Goal Seek', 'Data Table', 'Scenario Manager'], [
+      ['Find the price that makes profit exactly 20000', 'Goal Seek'],
+      ['See profit for 5 prices across 5 quantities', 'Data Table'],
+      ['Compare Best, Base, and Worst plans that each change price, quantity, and cost', 'Scenario Manager'],
+      ['Find the marketing increase that gives net income of 50000', 'Goal Seek'],
+      ['Fill a grid of results for two changing inputs', 'Data Table'],
+      ['Save named plans and show them in one summary table', 'Scenario Manager']]),
+    T(['whatif'], 'Match the tool to the number of changing inputs: one, two, more than two.', 'Goal Seek, Data Table, Scenario Manager', ['Data Table, Goal Seek, Scenario Manager', 'Scenario Manager, Goal Seek, Data Table', 'Goal Seek, Scenario Manager, Data Table'], 'One input to hit a target. Two inputs in a grid. Many inputs in named plans.'),
+    T(['whatif', 'sim'], 'Which Excel tools prescribe what to do given a goal?', 'Goal Seek, Data Tables, and Scenario Manager', ['Pivot tables and charts', 'SUM and AVERAGE', 'Format Painter and Flash Fill'], 'They sit under prescriptive analytics.')
+  ];
+
+  B.analytics = [
+    C(['analytics'], 'Sort each Excel tool by the kind of analytics.', ['Descriptive', 'Predictive', 'Prescriptive'], [
+      ['Pivot table', 'Descriptive'], ['Column or line chart of past sales', 'Descriptive'], ['Average, sum, and count', 'Descriptive'], ['Conditional formatting', 'Descriptive'],
+      ['FORECAST.ETS', 'Predictive'], ['Regression', 'Predictive'], ['Trendline on a chart', 'Predictive'],
+      ['Goal Seek', 'Prescriptive'], ['Scenario Manager', 'Prescriptive'], ['Data Table for simulation', 'Prescriptive'], ['Solver', 'Prescriptive']]),
+    C(['analytics'], 'Which type of question is it?', ['Descriptive', 'Predictive', 'Prescriptive'], [
+      ['What were sales in each region over the last three years?', 'Descriptive'],
+      ['What will next year\'s sales be?', 'Predictive'],
+      ['Which price should we set to maximize profit?', 'Prescriptive'],
+      ['Which product category sold the most last quarter?', 'Descriptive'],
+      ['How will demand change if we raise the price?', 'Predictive'],
+      ['How many units should we make to hit a profit target?', 'Prescriptive']]),
+    T(['analytics'], 'Descriptive analytics...', 'Analyzes historical data to understand past performance', ['Forecasts future outcomes', 'Recommends the best action', 'Replaces data with opinions'], 'Pivot tables, charts, and averages live here.'),
+    T(['analytics'], 'Predictive analytics...', 'Uses statistical techniques to forecast future outcomes', ['Describes the past only', 'Recommends the best action', 'Stores data'], 'Example: predict next year\'s sales from history.'),
+    T(['analytics'], 'Prescriptive analytics...', 'Recommends actions to optimize business outcomes', ['Describes the past only', 'Forecasts only', 'Cleans data'], 'Example: find the profit maximizing price for a new product.'),
+    TF(['analytics'], 'The three types of business analytics discussed in class are descriptive, predictive, and prescriptive.', true, 'Each answers a different question: what happened, what will happen, what should we do.')
+  ];
+
+  B.bi = [
+    T(['bi'], 'What does business intelligence combine?', 'Reporting, data exploration, ad hoc queries, and sophisticated modeling and analysis', ['Only spreadsheets', 'Only data storage', 'Only charts'], 'BI turns raw data into information and knowledge.'),
+    M(['bi'], 'Match each BI component to its job.', '', [['Data warehouse', 'Centralized storage of data'], ['Data mining', 'Extracting patterns from large datasets'], ['Dashboards and reports', 'Presenting insights visually']], ['Centralized storage of data', 'Extracting patterns from large datasets', 'Presenting insights visually', 'Processing daily transactions']),
+    T(['bi'], 'OLTP systems...', 'Process day to day transactions', ['Analyze data in a cube', 'Store charts', 'Replace Excel'], 'OLAP is the analysis side, built on data cubes.'),
+    T(['bi'], 'OLAP stands for...', 'Online Analytical Processing', ['Online Analysis Program', 'Operational Logic And Processing', 'Open List Access Protocol'], 'It supports cube style analysis, the idea behind pivot tables.')
+  ];
+
+  B.pivot = [
+    T(['pivot'], 'What is the data structure behind a pivot table?', 'A multidimensional data cube', ['A line chart', 'A decision variable', 'A single flat list with no structure'], 'Dimensions classify the data. Measures are what you add up.'),
+    C(['pivot'], 'Dimension or measure?', ['Dimension', 'Measure'], [['Region', 'Dimension'], ['Product category', 'Dimension'], ['Year', 'Dimension'], ['Retailer', 'Dimension'], ['Total sales', 'Measure'], ['Units sold', 'Measure'], ['Operating profit', 'Measure']]),
+    T(['pivot'], 'A cube has 3 locations, 4 products, and 3 years. You slice along Products. How many panes do you get?', '4', ['3', '12', '36'], 'One pane per product. Each pane is a 2D table of location by year.'),
+    T(['pivot'], 'You slice that same cube along Years. How many panes?', '3', ['4', '12', '9'], 'One per year.'),
+    T(['pivot'], 'Why slice a cube?', 'People read two dimensions better than three, so slicing removes one', ['To delete data', 'To add decimals', 'To create formulas'], 'You can also ignore a dimension, which collapses it into totals.'),
+    T(['pivot'], 'You want total sales for each product type in each region. Which setup?', 'Product in Rows, Region in Columns, Sum of Sales in Values', ['Sales in Rows, Product in Values', 'Region in Filters only', 'Everything in Columns'], 'Rows and Columns classify. Values holds the number you add up.'),
+    T(['pivot'], 'Which retailer has the highest average operating profit? What changes in the pivot?', 'Retailer in Rows, Operating Profit in Values set to Average', ['Operating Profit in Rows', 'Retailer in Values', 'Use Sum, which gives the same answer'], 'The default summary is Sum. Switch the value field to Average.'),
+    T(['pivot'], 'Which Excel feature fits sales by continent, year, product, and color?', 'Pivot tables', ['Goal Seek', 'IF', 'Format Painter'], 'Many dimensions, one measure.'),
+    T(['pivot'], 'Which pivot area controls the labels down the left side?', 'Rows', ['Columns', 'Values', 'Filters'], 'Columns runs across the top. Values holds the numbers.'),
+    T(['pivot'], 'What is the Filters area for?', 'Limiting the whole pivot to one slice, like a single year', ['Adding totals', 'Formatting colors', 'Sorting the source data'], 'It works like holding one dimension fixed.'),
+    T(['pivot'], 'Pivot tables are an example of...', 'Descriptive analytics', ['Prescriptive analytics', 'Predictive analytics', 'Simulation'], 'They summarize what happened.'),
+    T(['pivot'], 'What is a benefit of a pivot table?', 'You can rotate dimensions to see the data from different angles', ['It predicts next year', 'It writes IF statements', 'It removes errors from the source'], 'Speed, flexibility, and insight.')
+  ];
+
+  B.charts = [
+    C(['charts'], 'Pick the best chart for each job.', ['Line', 'Pie', 'Column', 'Scatter'], [
+      ['Net income over five years', 'Line'], ['Each expense type as a share of this year\'s total expenses', 'Pie'], ['Compare sales of four stores', 'Column'],
+      ['Does ADBE move with ORCL?', 'Scatter'], ['Monthly website visits for a year', 'Line'], ['Expense types over three years side by side', 'Column']]),
+    T(['charts'], 'Which data should never go in a pie chart?', 'Values over time, like revenue for five years', ['Expense types for one year', 'Sales by product line for one month', 'Shares of a whole'], 'Pie charts show parts of one whole. Use a line for time.'),
+    T(['charts'], 'A pie chart is only meaningful when...', 'All slices are positive and add up to a meaningful whole', ['It has at least eight slices', 'Every slice is a different color', 'It is 3D'], 'Each slice is one component of a whole.'),
+    T(['charts'], 'Which would make a poor pie chart?', 'Revenue, gross profit, and net income', ['Expense types for a year', 'Product lines for a month', 'Regions as a share of sales'], 'They overlap. Net income is already inside revenue.'),
+    T(['charts'], 'A chart has one data series. What should you do with the legend?', 'Delete it. It adds no information', ['Make it bigger', 'Move it into the title', 'Always keep it'], 'A legend helps when there are several series.'),
+    T(['charts'], 'Line charts are used to...', 'Show a trend over time', ['Show parts of a whole', 'Show the relationship between two variables', 'Rank items only'], 'Example: net income over several years.'),
+    T(['charts'], 'Which chart shows the relationship between two variables?', 'Scatter', ['Pie', 'Column', 'Line'], 'Each point is a pair of values.'),
+    M(['charts'], 'Match each chart element to its job.', '', [['Plot area', 'Where the data series is drawn'], ['Legend', 'Says which color is which series'], ['Data label', 'Shows the value of a point'], ['Axis title', 'Names what an axis measures']], ['Where the data series is drawn', 'Says which color is which series', 'Shows the value of a point', 'Names what an axis measures', 'Holds the chart title']),
+    T(['charts'], 'Which choice follows chart best practice?', 'Label the title and axes, and remove clutter like heavy gridlines', ['Use every color available', 'Keep all gridlines for accuracy', 'Add 3D effects'], 'Keep it simple and focus on the key message.'),
+    T(['charts'], 'Why be careful with red in a chart?', 'Red suggests something negative', ['Excel cannot print it', 'It hides the data', 'Red is not allowed'], 'Colors carry meaning. Avoid misleading ones.'),
+    T(['charts'], 'Column charts are best for...', 'Comparing groups or categories', ['Showing a relationship', 'Showing a trend only', 'Showing one slice'], 'Example: expense types over several years.')
+  ];
+
+  B.it = [
+    T(['it'], 'Data are...', 'Raw facts that must be turned into information to be useful', ['Information in context', 'Decisions already made', 'Charts and tables'], 'Information is data in context.'),
+    T(['it'], 'Information is...', 'Data presented in context so it can answer a question or support a decision', ['Raw facts only', 'Software', 'Hardware'], 'Context is the difference.'),
+    T(['it'], 'What does an information system typically include?', 'Hardware, software, data, procedures, and people', ['Only computers', 'Only software', 'Only a database'], 'They work together to manage and process information.'),
+    T(['it'], 'A decision support system is meant to combine...', 'The best of human decision makers and computing technology', ['Only human judgment', 'Only automation', 'Charts and pivots'], 'People and computers together.'),
+    C(['it'], 'Which level does each effect of IT describe?', ['Organizations', 'Individuals', 'Society'], [
+      ['Crowdfunding lowers the cost of starting a company', 'Organizations'], ['On demand services at your fingertips', 'Individuals'], ['Fake news and cybersecurity threats', 'Society'],
+      ['Reaching customers no matter where they are', 'Organizations'], ['Working from home on a flexible schedule', 'Individuals'], ['Jobs replaced and new jobs created', 'Society'],
+      ['Privacy violations from data leaks', 'Individuals'], ['Competition made more severe', 'Organizations']]),
+    T(['it'], 'Which statement matches the Gallaugher chapter?', 'Technology affects more industries and has become part of every functional area of a firm', ['Only technology firms need IT', 'Programming is the only skill that matters', 'Finance is untouched by IT'], 'IT is now an integral part of every function.'),
+    T(['it'], 'Which is a real risk of AI named in lecture?', 'Chatbots can hallucinate and make things up', ['AI always lowers costs', 'AI cannot be biased', 'AI never needs training data'], 'Others: biased recommendations, scams, and security holes.'),
+    T(['it'], 'Which is a positive use of AI named in lecture?', 'Lawyers sifting through large amounts of legal cases', ['Removing the need for data', 'Guaranteeing accuracy', 'Ending all jobs'], 'Also automating the grunt work of tax and financial work.'),
+    C(['it'], 'Is each item a real AI risk or a positive use named in lecture?', ['Risk', 'Positive use'], [
+      ['Biased recommendations that harm women and people of color', 'Risk'], ['Enabling scammers and hackers', 'Risk'], ['Chatbots that make things up', 'Risk'], ['Security holes in generated code', 'Risk'],
+      ['Programmers looking up a technique or new skill', 'Positive use'], ['Lawyers sifting through reams of legal cases', 'Positive use'], ['Automating the grunt work of tax and financial work', 'Positive use'], ['Diagnosing diseases', 'Positive use'], ['Fighting crime', 'Positive use'], ['Advancing cleantech', 'Positive use']]),
+    T(['it'], 'What does it mean when a chatbot hallucinates?', 'It confidently produces information that is made up or wrong', ['It refuses to answer', 'It runs slowly', 'It copies a database exactly'], 'Check AI answers against a reliable source.'),
+    T(['it'], 'Which firm does the lecture call the most important provider of the microprocessors used in AI?', 'Nvidia', ['Ford', 'Netflix', 'Zoom'], 'AI spending includes chips, server farms, data centers and electricity.'),
+    T(['it'], 'Besides chips, which spending is driven by AI according to lecture?', 'Data centers and the electricity to power them', ['Paper and printing', 'Office furniture', 'Retail stores'], 'Server farms and chips are only one area of AI spending.'),
+    T(['it'], 'Why do AI tools mean workers need job training?', 'The technology changes fast, so skills need constant updating', ['AI removes the need to learn', 'Training is illegal', 'AI works without any people'], 'The lecture says AI will require massive and nearly constant job training.'),
+    T(['it'], 'Deep fakes are an example of what kind of AI concern?', 'A societal impact that will need more discussion and policy', ['A spreadsheet error', 'A hardware failure', 'A pricing strategy'], 'AI effects reach society, not only organizations and individuals.'),
+    TF(['it'], 'AI systems are always neutral, so their recommendations cannot be biased.', false, 'Many AI systems have been shown to discriminate.'),
+    TF(['it'], 'The lecture says AI is already changing how people question the future of tech careers.', true, 'The rise of AI has led some to question the future of tech careers.'),
+    T(['it', 'analytics'], 'In the lecture, data analytics, business intelligence, and machine learning are described as...', 'Ways to get value from data that organizations often leave unused', ['Replacements for Excel', 'Types of hardware', 'Accounting rules'], 'Most available data is not exploited to advantage.'),
+    T(['it'], 'What is the Gartner Hype Cycle?', 'A curve of market expectations over time for a technology', ['A list of top ten stocks', 'A chart of CPU speed', 'A pricing model'], 'The plots are broad judgments, not precise data.'),
+    T(['it'], 'Why study the intersection of business and technology?', 'To judge new technologies. Those who cannot risk irrelevance and failure', ['To become programmers', 'To avoid using Excel', 'Because technology never changes'], 'It builds critical thinking about technology.'),
+    T(['it'], 'Which is a way IT changes a firm\'s business model?', 'Moving from offline to online and from tangible to intangible products', ['Eliminating all competition', 'Making geography more important', 'Raising the cost of starting a company'], 'IT reduces the importance of physical distance.'),
+    TF(['it'], 'In many organizations, most of the available data is not exploited to advantage.', true, 'Data analytics and business intelligence aim to change that.')
+  ];
+
+  B.design = [
+    O(['design'], 'Put the three Excel design goals in order.', ['Get the math right', 'Make it readable, usable, and understandable', 'Make it flexible. Never put values in formulas']),
+    T(['design'], 'Design goal 1 is...', 'Get the math right', ['Make it pretty', 'Make it flexible', 'Use the most functions'], 'Correctness comes first.'),
+    T(['design'], 'Design goal 3 is...', 'Make it flexible', ['Get the math right', 'Make it readable', 'Add a chart'], 'Never put a value in a formula.'),
+    T(['design'], 'Why does the course say never trust your Excel model?', 'Models can be wrong, so test them before relying on them', ['Excel always has bugs', 'Formulas cannot be audited', 'Models are never useful'], 'Validate before you rely.'),
+    T(['design'], 'Which test values does the course recommend?', 'Reasonable, actual, and extreme values', ['Only the biggest value', 'Random text', 'Zero only'], 'Extreme values expose breakage.'),
+    C(['design'], 'Which design goal does each habit support?', ['Correct math', 'Readable', 'Flexible'], [
+      ['Test the model with extreme values', 'Correct math'], ['Put the tax rate in its own cell', 'Flexible'], ['Widen columns instead of leaving blank ones', 'Readable'],
+      ['Check that totals add up', 'Correct math'], ['Label every input clearly', 'Readable'], ['Avoid typed numbers inside formulas', 'Flexible']]),
+    T(['design'], 'Which makes a model flexible?', 'Inputs in their own cells that formulas reference', ['A bright color scheme', 'Merged cells', 'Typed totals'], 'Change one cell and everything updates.'),
+    T(['design'], 'You add six scores per candidate into one total. What could go wrong?', 'Some attributes may matter more, so equal weights can mislead', ['Excel cannot add six numbers', 'Weights must sum to 10', 'Totals cannot be ranked'], 'Use weights that add up to 100%, then rank.')
+  ];
+
+  B.basics = [
+    T(['refs'], 'What is a workbook?', 'The whole Excel file, which holds one or more worksheets', ['A single grid of cells', 'A formula with several parts', 'A saved chart'], 'A worksheet is one tab. The workbook is the file.'),
+    T(['refs'], 'What does the range B2:B5 mean?', 'Every cell from B2 down to B5, four cells in all', ['Only B2 and B5', 'B2 divided by B5', 'The sum of B2 and B5'], 'The colon means "through". It is a block of cells.'),
+    T(['refs'], 'What is the active cell?', 'The selected cell, where typing goes. Its address shows in the Name Box', ['The cell with the largest value', 'The last cell with a formula', 'The top left cell of the sheet'], 'The formula bar shows its contents.'),
+    T(['refs'], 'A reference to Sheet2 cell B4 is written...', 'Sheet2!B4', ['Sheet2:B4', 'Sheet2.B4', 'B4(Sheet2)'], 'The exclamation mark joins the sheet name and the cell.'),
+    T(['enter'], 'What must you type first for Excel to treat the entry as a formula?', 'An equals sign =', ['A dollar sign $', 'Parentheses', 'The word SUM'], 'Without the =, Excel stores the entry as text.'),
+    T(['enter'], 'You type SUM(B2:B5) without the equals sign. What does the cell show?', 'The text SUM(B2:B5)', ['The total of B2:B5', '#NAME?', '0'], 'No = means no calculation.'),
+    T(['enter'], 'While typing a formula you click cell B5 instead of typing B5. What is the benefit?', 'The address is entered for you, so there are fewer typos', ['The reference becomes absolute', 'The value of B5 is typed in as a constant', 'Excel stores the formula as text'], 'Clicking builds the reference.'),
+    T(['enter', 'relabs'], 'What does the F4 key do while the cursor is on a reference in the formula bar?', 'Cycles through $B$1, B$1, $B1 and B1', ['Copies the formula', 'Deletes the reference', 'Runs a recalculation of the sheet'], 'It is the quick way to add $ locks.'),
+    T(['enter'], 'What is the fill handle?', 'The small square at the corner of the selected cell that you drag to copy', ['A button on the Home tab that fills color', 'The border around the sheet', 'A shortcut key'], 'Dragging it copies the formula and adjusts relative references.'),
+    T(['enter', 'relabs'], 'You drag the fill handle on =B2*$B$1 down one row. What do you get?', '=B3*$B$1', ['=B3*B2', '=B2*$B$2', '=B2*$B$1'], 'B2 is relative so it moves. $B$1 is locked.'),
+    T(['enter', 'relabs'], 'You copy =A1+B1 from C1 to C2. What is in C2?', '=A2+B2', ['=A1+B1', '=C2+D2', '=A2+B1'], 'Relative references shift by the same distance you copy.'),
+    T(['funcs'], 'In =IF(B2>100,"High","Low"), the arguments are...', 'B2>100, "High" and "Low"', ['IF, B2 and 100', 'Only B2>100', 'The equals sign and IF'], 'Arguments sit inside the parentheses, separated by commas.'),
+    T(['funcs'], 'What separates arguments inside a function?', 'Commas', ['Colons', 'Semicolons on every system', 'Spaces'], 'A colon makes a range, a comma separates arguments.'),
+    T(['funcs'], 'Which formula nests a function inside another?', '=ROUND(SUM(B2:B5),0)', ['=SUM(B2:B5)', '=B2+C2', '=MAX(B2,C2)'], 'SUM sits inside ROUND.'),
+    T(['funcs'], 'In =ROUND(SUM(B2:B5)/3,0), which part does Excel evaluate first?', 'SUM(B2:B5)', ['ROUND', 'The division by 3', 'The 0'], 'Excel works from the inside out.'),
+    T(['funcs', 'ifx'], 'In =IF(B2>50000,B2*$B$1,0), which part is the logical test?', 'B2>50000', ['B2*$B$1', '0', 'IF'], 'The first argument is the test. The second is the value if true. The third is the value if false.'),
+    T(['errvals'], 'A cell shows #DIV/0!. What happened?', 'A formula divided by zero or by an empty cell', ['A cell reference was deleted', 'A lookup found no match', 'A function name was misspelled'], 'Check the denominator.'),
+    T(['errvals'], 'A cell shows #REF!. What is the usual cause?', 'A cell the formula pointed to was deleted', ['Dividing by zero', 'A misspelled function', 'A lookup with no match'], 'The reference no longer exists.'),
+    T(['errvals'], 'You type =SUMM(B2:B5) and get #NAME?. What is wrong?', 'Excel does not recognize the function name', ['The range is too long', 'B2:B5 contains text', 'The cells are formatted as currency'], 'Check the spelling.'),
+    T(['errvals'], 'You add a number to a cell that holds the word "n/a" and get #VALUE!. Why?', 'Arithmetic needs numbers, and the cell holds text', ['The cell is locked', 'The formula is too long', 'Excel ran out of memory'], 'The wrong type of data causes #VALUE!.'),
+    T(['errvals'], 'An exact VLOOKUP shows #N/A. What does it mean?', 'The lookup value was not found', ['Divide by zero', 'The column is hidden', 'The formula is circular'], 'N/A means not available.'),
+    M(['errvals'], 'Match each error to its meaning.', '', [['#DIV/0!', 'Divided by zero'], ['#REF!', 'A referenced cell was deleted'], ['#NAME?', 'Unrecognized function or name'], ['#N/A', 'Lookup found nothing']], ['Divided by zero', 'A referenced cell was deleted', 'Unrecognized function or name', 'Lookup found nothing']),
+    T(['display'], 'A cell holds 0.256 and is formatted as a percent with no decimals. It shows 26%. What does a formula using that cell use?', '0.256', ['0.26', '26', '0.2'], 'Formatting changes the look, not the stored value.'),
+    T(['display'], 'You format 10.456 with two decimals and see 10.46. What is stored?', '10.456', ['10.46', '10', '10.4'], 'The ROUND function changes the value. Formatting does not.'),
+    TF(['display'], 'Applying Percent format to 0.08 changes the stored value to 8.', false, 'It shows 8% and still stores 0.08.'),
+    T(['display'], 'You type 8% into a cell. Excel stores...', '0.08', ['8', '80', '0.8'], 'A percent is a number divided by 100.')
+  ];
+
+  B.write = [
+    W(['sumrange', 'enter'], 'Write the formula for B7 that totals the four monthly sales above it.', { B3: 1200, B4: 950, B5: 1480, B6: 1100 }, 'B7', '=SUM(B3:B6)', { labels: { A1: 'Monthly sales', A3: 'Jan', A4: 'Feb', A5: 'Mar', A6: 'Apr', A7: 'Total' }, needRange: true, hint: 'Use a function that adds a range.', why: 'A range uses a colon: first cell through last cell.' }),
+    W(['funcs', 'minmax'], 'Write the formula for B7 that finds the average of the four scores.', { B3: 78, B4: 92, B5: 85, B6: 71 }, 'B7', '=AVERAGE(B3:B6)', { labels: { A1: 'Quiz scores', A3: 'Quiz 1', A4: 'Quiz 2', A5: 'Quiz 3', A6: 'Quiz 4', A7: 'Average' }, hint: 'AVERAGE takes a range.', why: 'AVERAGE adds the numbers and divides by how many there are.' }),
+    W(['minmax'], 'Write the formula for B7 that finds the highest price.', { B3: 14, B4: 22, B5: 9, B6: 18 }, 'B7', '=MAX(B3:B6)', { labels: { A1: 'Prices', A7: 'Highest' }, hint: 'The opposite of MIN.', why: 'MAX returns the largest value in the range.' }),
+    W(['opsorder', 'enter'], 'Write the formula for D2 that gives the average of B2 and C2, with no function.', { B2: 70, C2: 90 }, 'D2', '=(B2+C2)/2', { labels: { B1: 'Midterm', C1: 'Final', D1: 'Average' }, fill: { dc: 0, dr: 1, n: 1 }, extra: { B3: 60, C3: 88 }, hint: 'Add first, then divide. What do you need around the addition?', why: 'Without parentheses, division happens first and gives the wrong answer.' }),
+    W(['relabs', 'inputs', 'enter'], 'Write the formula for C4 that finds the tax on the amount in B4. It will be copied down to C5 and C6.', { B1: 0.08, B4: 200, B5: 340, B6: 75 }, 'C4', '=B4*$B$1', { labels: { A1: 'Tax rate', B3: 'Amount', C3: 'Tax' }, fill: { dc: 0, dr: 1, n: 2 }, hint: 'Which cell must stay put when you copy down?', why: 'B4 moves down. The tax rate in B1 is locked with $.' }),
+    W(['relabs', 'enter'], 'This formula was copied down and C5 and C6 show 0. Write the corrected formula for C4.', { B1: 0.12, B4: 500, B5: 250, B6: 800 }, 'C4', '=B4*$B$1', { labels: { A1: 'Commission rate', B3: 'Sales', C3: 'Commission' }, shown: '=B4*B1', fill: { dc: 0, dr: 1, n: 2 }, hint: 'The rate slid down to an empty cell.', why: 'Lock the rate with $B$1. F4 adds the dollar signs.' }),
+    W(['relabs', 'enter'], 'Write the formula for D3 that multiplies price by quantity. It will be copied down to D4 and D5.', { B3: 4, C3: 25, B4: 6, C4: 10, B5: 9, C5: 3 }, 'D3', '=B3*C3', { labels: { B2: 'Price', C2: 'Qty', D2: 'Total' }, fill: { dc: 0, dr: 1, n: 2 }, hint: 'Both cells are in the same row. Does anything need a $?', why: 'Nothing is locked here. Both references move down together.' }),
+    W(['ifx', 'funcs', 'relabs'], 'Write the formula for C4. Pay a bonus of the rate times sales only when sales exceed the sales limit. Otherwise show 0. Copy it down.', { B1: 0.05, B2: 50000, B4: 62000, B5: 41000, B6: 78000 }, 'C4', '=IF(B4>$B$2,B4*$B$1,0)', { labels: { A1: 'Bonus rate', A2: 'Sales limit', B3: 'Sales', C3: 'Bonus' }, fill: { dc: 0, dr: 1, n: 2 }, edge: { B4: 50000 }, hint: 'IF(test, value if true, value if false). Lock the limit and the rate.', why: 'Sales must exceed the limit, so use > and not >=. Both inputs are locked.' }),
+  ];
+
+  B.errors = [
+    T(['relabs'], '=B5*B1 in C5 is copied down. C6 and C7 show 0. What is the cause?', 'B1 needs a $ so it stays on the rate. It slid down to empty cells', ['The rate is too small', 'C6 needs a SUM', 'Row 6 is hidden'], 'Fix: =B5*$B$1.'),
+    T(['texnum'], '=SUM(B2:B5) returns 0, but the cells show numbers aligned to the left. What is the likely cause?', 'The numbers are stored as text', ['SUM is broken', 'The range is too short', 'The cells are formatted as percent'], 'Text aligns left. Re-enter the values as numbers.'),
+    T(['pctchg'], '=C2/B2 shows 1.25 for a rise from 80 to 100. You want 25%. What fixes it?', '=(C2-B2)/B2', ['=B2/C2', '=C2*B2', '=(C2-B2)/C2'], 'Percent change divides the change by the starting value.'),
+    T(['pctchg'], 'Someone writes =(C2-B2)/C2 for percent change. What is wrong?', 'It divides by the new value. It should divide by the old value, B2', ['Nothing', 'It should subtract after dividing', 'It should add B2'], 'Percent change is relative to where you started.'),
+    T(['inputs'], '=B5*0.08 works today. The rate changes to 9%. What is the best fix?', 'Put the rate in its own cell and reference it with $', ['Retype 0.09 in every formula', 'Format the result as percent', 'Hide the column'], 'One change in one cell.'),
+    T(['ifx'], 'An IF formula shows FALSE for some rows. What is the likely cause?', 'The third part is missing', ['The test is spelled wrong', 'The cell is too narrow', 'It needs a SUM'], 'Add the value to use when the test fails.'),
+    T(['sumrange'], 'A total =SUM(B2:B5) misses a new row 6 added below the data. What is the lesson?', 'Make sure the range covers every row, and insert new rows inside the range', ['SUM ignores new rows by design', 'Use a calculator', 'Hide row 6'], 'Range ends matter.'),
+    T(['refs'], 'A formula returns #DIV/0!. What is the usual cause?', 'It divides by zero or by an empty cell', ['The cell is too narrow', 'The formula has too many cells', 'Excel needs to restart'], 'Check the divisor.'),
+    T(['lookup'], 'A VLOOKUP returns the right row but the wrong data. The index number is 3 and you wanted the second column. What fixes it?', 'Change the index number to 2', ['Change FALSE to TRUE', 'Add a $', 'Use SUM'], 'The index counts columns within the table array.'),
+    T(['lookup'], 'A VLOOKUP with FALSE returns #N/A for ID 32. The ID is in the table, but the table range starts with the Name column. What is wrong?', 'The lookup column must be the first column of the table array', ['The ID is too short', 'FALSE is not allowed', 'Table arrays must be sorted'], 'Start the range at the ID column, or use XLOOKUP.')
+  ];
+
+
+  const VIS = [
+    ['What does the Name Box show?', { cols: ['A', 'B', 'C', 'D'], rows: [13, 14, 15], active: 'C14', name: 'C14', bar: '45000', cells: { C14: '45,000' } }],
+    ['In the address D7, what does the 7', { cols: ['B', 'C', 'D', 'E'], rows: [6, 7, 8], active: 'D7', name: 'D7', bar: '', cells: {} }],
+    ['What does the range B2:B5 mean?', { cols: ['A', 'B', 'C'], rows: [1, 2, 3, 4, 5, 6], sel: ['B2', 'B3', 'B4', 'B5'], active: 'B2', name: 'B2:B5', bar: '', cells: { B2: '10', B3: '20', B4: '30', B5: '40' } }],
+    ['What is the fill handle?', { cols: ['A', 'B', 'C'], rows: [2, 3, 4, 5], active: 'C2', handle: true, name: 'C2', bar: '=A2+B2', cells: { A2: '3', B2: '4', C2: '7', A3: '5', B3: '6' } }],
+    ['A cell shows #DIV/0!', { cols: ['A', 'B', 'C'], rows: [2, 3], active: 'C2', name: 'C2', bar: '=A2/B2', cells: { A2: '50', B2: '0', C2: '#DIV/0!' }, err: ['C2'] }],
+    ['A cell shows #REF!', { cols: ['A', 'B', 'C'], rows: [2, 3], active: 'C2', name: 'C2', bar: '=A2+#REF!', cells: { A2: '50', C2: '#REF!' }, err: ['C2'] }],
+    ['You type =SUMM(B2:B5)', { cols: ['A', 'B', 'C'], rows: [2, 3, 4, 5, 6], active: 'B6', name: 'B6', bar: '=SUMM(B2:B5)', cells: { B2: '10', B3: '20', B4: '30', B5: '40', B6: '#NAME?' }, err: ['B6'] }],
+    ['A cell holds 0.256', { cols: ['A', 'B'], rows: [1, 2], active: 'B1', name: 'B1', bar: '0.256', cells: { A1: 'Margin', B1: '26%' } }],
+    ['You type 8% into a cell', { cols: ['A', 'B'], rows: [1, 2], active: 'B1', name: 'B1', bar: '8%', cells: { A1: 'Rate', B1: '8%' } }]
+  ];
+  VIS.forEach((v) => { const q = B.basics.find((x) => x.q.indexOf(v[0]) === 0); if (q) q.vis = v[1]; });
+
+  if (typeof module !== 'undefined' && module.exports) module.exports = B; else root.BANK = B;
+})(typeof window !== 'undefined' ? window : globalThis);
+</script>
+<script>(function () {
+  'use strict';
+  const X = window.XL, SK = window.SKILLS, BANK = window.BANK;
+
+  /* ---------- helpers ---------- */
+  function h(tag, attrs) {
+    const e = document.createElement(tag);
+    for (const k in (attrs || {})) {
+      const v = attrs[k];
+      if (k === 'class') e.className = v;
+      else if (k === 'html') e.innerHTML = v;
+      else if (k.slice(0, 2) === 'on') e.addEventListener(k.slice(2), v);
+      else if (v !== false && v !== null && v !== undefined) e.setAttribute(k, v === true ? '' : v);
+    }
+    for (let i = 2; i < arguments.length; i++) {
+      const kids = [].concat(arguments[i]);
+      for (const kid of kids) { if (kid == null || kid === false) continue; e.append(kid.nodeType ? kid : document.createTextNode(kid)); }
+    }
+    return e;
+  }
+  const rnd = (a, b) => a + Math.floor(Math.random() * (b - a + 1));
+  const pick = (arr) => arr[rnd(0, arr.length - 1)];
+  function shuffle(arr) { const a = arr.slice(); for (let i = a.length - 1; i > 0; i--) { const j = rnd(0, i); const t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
+  const money = (n) => (n < 0 ? '(' : '') + '$' + Math.abs(Math.round(n)).toLocaleString('en-US') + (n < 0 ? ')' : '');
+  const pctText = (v) => (Math.round(v * 1000) / 10) + '%';
+
+  /* ---------- skill tracking (this browser only) ---------- */
+  const KEY = 'insy2299_skills_v2';
+  const store = {
+    get() {
+      try {
+        const raw = JSON.parse(localStorage.getItem(KEY) || '{}'); const out = {};
+        if (!raw || typeof raw !== 'object' || Array.isArray(raw)) return out;
+        Object.keys(raw).forEach((k) => { const v = raw[k]; if (v && typeof v === 'object' && Number.isFinite(v.t) && Number.isFinite(v.r) && v.t >= 0 && v.r >= 0 && v.r <= v.t) out[k] = { t: v.t, r: v.r }; });
+        return out;
+      } catch (e) { return {}; }
+    },
+    set(o) { try { localStorage.setItem(KEY, JSON.stringify(o)); } catch (e) { /* storage unavailable */ } }
+  };
+  function recordSkills(skills, ok) {
+    const p = store.get();
+    skills.forEach((s) => { p[s] = p[s] || { t: 0, r: 0 }; p[s].t++; if (ok) p[s].r++; });
+    store.set(p);
+  }
+  function skillChips(skills) {
+    return h('p', { class: 'skills-used' }, 'Skills: ', skills.map((s) => h('span', { class: 'sk' }, SK[s] ? SK[s].name : s)));
+  }
+  function skillCard(id, open) {
+    const s = SK[id];
+    return h('details', { class: 'skillcard', open: open !== false },
+      h('summary', null, 'Skill: ', s.name),
+      h('p', null, s.say),
+      s.ex ? h('p', { class: 'ex' }, h('code', null, s.ex)) : null,
+      h('p', { class: 'small' }, s.why));
+  }
+
+  /* ---------- sheet picture ---------- */
+  function sheetTable(cols, rows, cellFn) {
+    const head = h('tr', null, h('th', { class: 'corner' }), cols.map((c) => h('th', null, c)));
+    const body = rows.map((r) => h('tr', null, h('th', { class: 'rown' }, String(r)),
+      cols.map((c) => { const d = cellFn(c, r) || {}; return h('td', { class: d.cls || '', title: d.title || null }, d.t === undefined ? '' : d.t); })));
+    return h('div', { class: 'sheet-wrap' }, h('table', { class: 'sheet', 'aria-label': 'Spreadsheet' }, head, body));
+  }
+  const ASK = { t: '?', cls: 'ask' }, COPYD = { t: 'copy down', cls: 'copy' }, COPYR = { t: 'copy right', cls: 'copy' };
+  const colL = (n) => X.numToCol(n);
+
+  /* ---------- formula problem renderer ---------- */
+  function showResult(box, r) {
+    box.innerHTML = '';
+    const badge = r.level === 'pass' ? ['ok', 'Correct'] : r.level === 'partial' ? ['warn', 'Right value, needs work'] : ['bad', 'Not yet'];
+    box.append(h('div', { class: 'badge ' + badge[0] }, badge[1]));
+    const list = r.msgs.concat(r.notes);
+    if (list.length) box.append(h('ul', null, list.map((m) => h('li', null, m))));
+    if (r.level === 'pass' && !r.notes.length) box.append(h('p', { class: 'small' }, 'Any formula that gives the same results, including when copied, is accepted.'));
+  }
+
+  function renderFormulaProblem(root, P, regen) {
+    root.innerHTML = '';
+    const inputs = [], boxes = [];
+    (P.cards || []).forEach((c) => root.append(skillCard(c)));
+    root.append(h('div', { class: 'card' }, h('h3', null, P.title), h('div', { class: 'desc', html: P.desc })));
+    root.append(h('div', { class: 'card' }, h('h4', null, 'The spreadsheet'), P.sheet));
+    const gate = h('div', { class: 'gate' },
+      h('p', null, h('strong', null, 'Step 1. '), 'Write your formulas on paper first, the way the exam works.'),
+      h('button', { class: 'btn', onclick: () => { gate.classList.add('done'); inputs.forEach((i) => { i.disabled = false; i.placeholder = '='; }); if (inputs[0]) inputs[0].focus(); checkBtn.disabled = false; } }, 'I wrote mine on paper'));
+    root.append(gate);
+    const answers = h('div', { class: 'card' }, h('h4', null, 'Step 2. Type what you wrote'));
+    const hintLevel = P.items.map(() => 0);
+    P.items.forEach((it, idx) => {
+      const input = h('input', { type: 'text', class: 'fx', spellcheck: 'false', autocomplete: 'off', 'aria-label': 'Formula for ' + it.addr, placeholder: 'Write on paper first', disabled: true });
+      inputs.push(input);
+      const box = h('div', { class: 'result', 'aria-live': 'polite' }); boxes.push(box);
+      const hintBox = h('div', { class: 'hint' });
+      const hintBtn = h('button', { class: 'btn ghost', onclick: () => {
+        if (hintLevel[idx] < it.hints.length) hintLevel[idx]++;
+        hintBox.innerHTML = ''; hintBox.append(h('strong', null, 'Hint ' + hintLevel[idx] + ': '), it.hints[hintLevel[idx] - 1]);
+        if (hintLevel[idx] >= it.hints.length) hintBtn.textContent = 'No more hints';
+      } }, 'Hint');
+      const ansBtn = h('button', { class: 'btn ghost', onclick: () => {
+        hintBox.innerHTML = ''; hintBox.append(h('strong', null, 'One correct answer: '), h('code', null, it.refText), h('p', { class: 'small' }, it.explain));
+      } }, 'Show an answer');
+      input.addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); checkOne(idx); } });
+      answers.append(h('div', { class: 'item' }, h('label', null, h('span', { class: 'addr' }, it.addr), ' ', it.label),
+        h('div', { class: 'row' }, input, hintBtn, ansBtn), hintBox, box));
+    });
+    const checkBtn = h('button', { class: 'btn', disabled: true, onclick: () => checkAll() }, 'Check all answers');
+    const summary = h('div', { class: 'summary', 'aria-live': 'polite' });
+    answers.append(h('div', { class: 'row actions' }, checkBtn, h('button', { class: 'btn ghost', onclick: regen }, 'New problem with new numbers')), summary);
+    root.append(answers);
+
+    function checkOne(idx) {
+      const it = P.items[idx], text = inputs[idx].value.trim();
+      if (!text) { boxes[idx].innerHTML = ''; boxes[idx].append(h('div', { class: 'badge bad' }, 'Nothing typed yet')); return null; }
+      const r = X.grade(it.spec, text);
+      showResult(boxes[idx], r);
+      boxes[idx].append(skillChips(it.skills));
+      return r;
+    }
+    function checkAll() {
+      let ok = 0, filled = 0;
+      P.items.forEach((it, i) => { const r = checkOne(i); if (r) { filled++; const pass = r.level === 'pass'; if (pass) ok++; recordSkills(it.skills, pass); } });
+      summary.textContent = ok + ' of ' + P.items.length + ' correct.' + (ok === P.items.length ? ' Every cell passes. Try a new problem with new numbers.' : ' Fix the cells marked Not yet. Use a hint if you are stuck.');
+    }
+    window.__current = { P, inputs, checkAll, unlock: () => { inputs.forEach((i) => { i.disabled = false; }); checkBtn.disabled = false; } };
+  }
+
+  function mkItem(def, scen, lit) {
+    return { addr: def.addr, label: def.label, hints: def.hints, explain: def.explain, refText: def.ref, skills: def.skills,
+      spec: { origin: X.addr(def.addr), ref: X.parse(def.ref), scen, fill: def.fill || null, inputs: lit || [], needRange: !!def.needRange, accept100: !!def.accept100, allowLits: def.allowLits || [0, 1], lossName: def.lossName, ifMsg: def.ifMsg } };
+  }
+  const EDGE_MSG = 'Check the boundary. What should happen when the value is exactly equal to the limit? The description says whether the value must exceed the limit or only reach it.';
+
+  /* ---------- drill: percent change ---------- */
+  function genPctChange() {
+    const ctx = pick([['Gym memberships', 'Members'], ['Ticket sales', 'Tickets'], ['Tutoring hours', 'Hours'], ['App downloads', 'Downloads']]);
+    const sites = ['Downtown', 'Midtown', 'Uptown'], off = rnd(0, 2), r1 = 3 + off, rh = 2 + off, yr = rnd(2023, 2025);
+    const mk = () => sites.map(() => { const a = rnd(20, 90) * 10; return [a, Math.max(10, Math.round(a * (1 + rnd(-25, 40) / 100) / 10) * 10)]; });
+    const build = (d) => { const s = new X.Sheet(); d.forEach((v, i) => { const r = r1 + i; s.set('B' + r, v[0]); s.set('C' + r, v[1]); s.set('D' + r, `=C${r}-B${r}`); s.set('E' + r, `=D${r}/B${r}`); }); return s; };
+    const scen = [{ name: 'base', sheet: build(mk()) }, { name: 'changed', sheet: build(mk()) }];
+    const items = [
+      { addr: 'D' + r1, label: 'Change in ' + ctx[0].toLowerCase() + ', first site', ref: `=C${r1}-B${r1}`, fill: { dc: 0, dr: 1, n: 2 }, skills: ['pctchg'], hints: ['This year minus last year.', 'Both cells are in the same row, so no $ is needed.'], explain: 'This year minus last year. Both references move down when copied.' },
+      { addr: 'E' + r1, label: 'Percent change, first site', ref: `=D${r1}/B${r1}`, fill: { dc: 0, dr: 1, n: 2 }, accept100: true, skills: ['pctchg'], hints: ['Percent change is the change divided by where you started.', 'Which year is the starting point? Divide by that cell.'], explain: 'The change divided by last year. Format the cell as a percent.' }];
+    const base = scen[0].sheet;
+    const sheet = sheetTable(['A', 'B', 'C', 'D', 'E'], [1, rh].concat(sites.map((s, i) => r1 + i)), (c, r) => {
+      if (r === 1) return c === 'A' ? { t: ctx[0], cls: 'title' } : null;
+      if (r === rh) return { t: ['', yr + ' ' + ctx[1], (yr + 1) + ' ' + ctx[1], 'Change', 'Percent change'][X.colToNum(c) - 1], cls: 'hdr' };
+      if (c === 'A') return { t: sites[r - r1] };
+      if (c === 'D' || c === 'E') return r === r1 ? ASK : COPYD;
+      return { t: String(base.value(c + r)), cls: 'num' };
+    });
+    return { title: 'Percent change', skills: ['pctchg'], cards: ['pctchg'], sheet, items: items.map((d) => mkItem(d, scen)),
+      desc: '<p>Three sites report <strong>' + ctx[0].toLowerCase() + '</strong> for ' + yr + ' and ' + (yr + 1) + '.</p><ul><li><strong>Change</strong> is this year minus last year.</li><li><strong>Percent change</strong> is the change as a percent of last year.</li></ul><p>Write the formulas for the first site. The other sites are filled by copying down.</p>' };
+  }
+
+  /* ---------- drill: percent of total (anchor) ---------- */
+  function genPctTotal() {
+    const sets = [['Monthly budget', ['Rent', 'Payroll', 'Supplies', 'Marketing']], ['Club spending', ['Events', 'Travel', 'Food', 'Printing']], ['Store sales', ['Shoes', 'Shirts', 'Hats', 'Socks']]];
+    const [name, cats] = pick(sets), off = rnd(0, 2), r1 = 3 + off, rh = 2 + off, rt = r1 + 4;
+    const mk = () => cats.map(() => rnd(5, 60) * 100);
+    const build = (d) => { const s = new X.Sheet(); d.forEach((v, i) => { const r = r1 + i; s.set('B' + r, v); s.set('C' + r, `=B${r}/$B$${rt}`); }); s.set('B' + rt, `=SUM(B${r1}:B${rt - 1})`); s.set('C' + rt, `=SUM(C${r1}:C${rt - 1})`); return s; };
+    const scen = [{ name: 'base', sheet: build(mk()) }, { name: 'changed', sheet: build(mk()) }];
+    const items = [
+      { addr: 'B' + rt, label: 'Total', ref: `=SUM(B${r1}:B${rt - 1})`, needRange: true, skills: ['sumrange'], hints: ['Add every line in the column.', 'SUM over the range of lines, so adding a line later needs little change.'], explain: 'SUM over the four lines.' },
+      { addr: 'C' + r1, label: 'Share of total, first line', ref: `=B${r1}/$B$${rt}`, fill: { dc: 0, dr: 1, n: 3 }, accept100: true, skills: ['pctchg', 'relabs'], hints: ['Part divided by total.', 'The total sits in one cell. When you copy down, which reference must stay fixed?', 'Lock the total with $. Leave the line item free to move down.'], explain: 'The line divided by the locked total. The line moves down. The total stays.' }];
+    const base = scen[0].sheet;
+    const sheet = sheetTable(['A', 'B', 'C'], [1, rh].concat(cats.map((c, i) => r1 + i)).concat([rt]), (c, r) => {
+      if (r === 1) return c === 'A' ? { t: name, cls: 'title' } : null;
+      if (r === rh) return { t: ['', 'Amount', 'Share of total'][X.colToNum(c) - 1], cls: 'hdr' };
+      if (r === rt) return c === 'A' ? { t: 'Total' } : c === 'B' ? ASK : null;
+      if (c === 'A') return { t: cats[r - r1] };
+      if (c === 'B') return { t: money(base.value('B' + r)), cls: 'num' };
+      return r === r1 ? ASK : COPYD;
+    });
+    return { title: 'Percent of total', skills: ['pctchg', 'relabs', 'sumrange'], cards: ['pctchg', 'relabs'], sheet, items: items.map((d) => mkItem(d, scen)),
+      desc: '<p>The <strong>' + name.toLowerCase() + '</strong> has four lines. Find the total, then each line\'s share of that total.</p><p>Write the formulas for the Total and for the first line\'s share. The other lines are filled by copying down.</p>' };
+  }
+
+  /* ---------- drill: savings growth ---------- */
+  function genSavings() {
+    const dep = rnd(5, 40) * 100, rate = rnd(2, 7) / 100, start = rnd(20, 80) * 100;
+    const labels = ['Start', 'Year 1', 'Year 2', 'Year 3'];
+    const build = (dp, rt, st) => {
+      const s = new X.Sheet(); s.set('B2', dp); s.set('B3', rt); s.set('B6', st); s.set('B7', '=B6/$B$6-1');
+      [['C', 'B'], ['D', 'C'], ['E', 'D']].forEach(([c, p]) => { s.set(c + '6', `=${p}6*(1+$B$3)+$B$2`); s.set(c + '7', `=${c}6/$B$6-1`); });
+      return s;
+    };
+    const scen = [{ name: 'base', sheet: build(dep, rate, start) }, { name: 'changed', sheet: build(dep + 1500, rate + 0.03, start + 2000) }];
+    const lit = [{ label: 'Yearly deposit', addr: 'B2', value: dep }, { label: 'Annual interest rate', addr: 'B3', value: rate }];
+    const items = [
+      { addr: 'C6', label: 'Balance, Year 1', ref: '=B6*(1+$B$3)+$B$2', fill: { dc: 1, dr: 0, n: 2 }, skills: ['growth', 'relabs'], hints: ['Last year\'s balance grows by the rate, then the deposit is added.', 'Last year\'s balance times (1 + rate), plus the deposit. Which two inputs need a $?'], explain: 'Prior balance times one plus the rate, plus the deposit. The balance moves right. The rate and deposit are locked.' },
+      { addr: 'C7', label: 'Growth since the start, Year 1', ref: '=C6/$B$6-1', fill: { dc: 1, dr: 0, n: 2 }, accept100: true, skills: ['pctchg', 'relabs'], hints: ['Compare this year\'s balance with the starting balance.', 'This balance divided by the starting balance, minus 1. The start must not move when copied right.'], explain: 'Balance divided by the locked starting balance, minus one. Format as a percent.' }];
+    const base = scen[0].sheet;
+    const sheet = sheetTable(['A', 'B', 'C', 'D', 'E'], [1, 2, 3, 5, 6, 7], (c, r) => {
+      if (r === 1) return c === 'A' ? { t: 'Savings plan', cls: 'title' } : null;
+      if (r === 2) return c === 'A' ? { t: 'Yearly deposit' } : c === 'B' ? { t: money(dep), cls: 'num' } : null;
+      if (r === 3) return c === 'A' ? { t: 'Annual interest rate' } : c === 'B' ? { t: pctText(rate), cls: 'num' } : null;
+      if (r === 5) return { t: c === 'A' ? '' : labels[X.colToNum(c) - 2], cls: 'hdr' };
+      if (r === 6) return c === 'A' ? { t: 'Balance' } : c === 'B' ? { t: money(start), cls: 'num' } : c === 'C' ? ASK : COPYR;
+      return c === 'A' ? { t: 'Growth since start' } : c === 'B' ? { t: '0%', cls: 'num' } : c === 'C' ? ASK : COPYR;
+    });
+    return { title: 'Savings plan', skills: ['growth', 'relabs', 'pctchg'], cards: ['growth', 'relabs'], sheet, items: items.map((d) => mkItem(d, scen, lit)),
+      desc: '<p>A saver starts with ' + money(start) + '. Each year the balance earns ' + pctText(rate) + ', and then ' + money(dep) + ' is deposited.</p><p>Fill in Year 1. The formulas will be copied to the right for Years 2 and 3, so they must survive a copy. Someone should be able to change the rate or the deposit and see every year update.</p>' };
+  }
+
+  /* ---------- drill: price table (mixed anchors) ---------- */
+  function genPriceTable() {
+    const mode = pick(['basic', 'discount']);
+    const ctx = pick([['Price per box', 'Boxes sold'], ['Ticket price', 'Tickets sold'], ['Hourly rate', 'Hours worked']]);
+    const prices = [rnd(2, 5) * 2, rnd(6, 9) * 2, rnd(10, 14) * 2], qtys = [rnd(1, 3) * 10, rnd(4, 6) * 10, rnd(7, 9) * 10, rnd(10, 12) * 10];
+    const disc = rnd(1, 3) * 5 / 100;
+    const build = (pr, qt, dc) => {
+      const s = new X.Sheet(); s.set('B1', dc);
+      qt.forEach((q, i) => s.set(colL(2 + i) + '3', q)); pr.forEach((p, j) => s.set('A' + (4 + j), p));
+      for (let j = 0; j < 3; j++) for (let i = 0; i < 4; i++) { const c = colL(2 + i), r = 4 + j; s.set(c + r, mode === 'basic' ? `=$A${r}*${c}$3` : `=$A${r}*${c}$3*(1-$B$1)`); }
+      return s;
+    };
+    const scen = [{ name: 'base', sheet: build(prices, qtys, disc) }, { name: 'changed', sheet: build(prices.map((p) => p + 3), qtys.map((q) => q + 5), disc + 0.1) }];
+    const ref = mode === 'basic' ? '=$A4*B$3' : '=$A4*B$3*(1-$B$1)';
+    const fill = [{ dc: 1, dr: 0, n: 3 }, { dc: 0, dr: 1, n: 2 }, { dc: 1, dr: 1, n: 2 }];
+    const item = { addr: 'B4', label: 'Revenue, first cell of the table', ref, fill, skills: ['relabs'],
+      hints: mode === 'basic'
+        ? ['One formula must fill the whole table by copying across and down.', 'When you copy across, the price column must stay in column A. When you copy down, the quantity row must stay in row 3.', 'Lock the column of the price: $A4. Lock the row of the quantity: B$3.']
+        : ['One formula must fill the whole table by copying across and down. The discount sits in one cell.', 'Price keeps its column. Quantity keeps its row. The discount keeps both.', '$A4 for the price, B$3 for the quantity, $B$1 for the discount.'],
+      explain: mode === 'basic' ? 'Price locks its column. Quantity locks its row. This is a mixed reference.' : 'Price locks its column. Quantity locks its row. The discount rate locks both.' };
+    const sheet = sheetTable(['A', 'B', 'C', 'D', 'E'], mode === 'basic' ? [3, 4, 5, 6] : [1, 3, 4, 5, 6], (c, r) => {
+      if (r === 1) return c === 'A' ? { t: 'Discount rate' } : c === 'B' ? { t: pctText(disc), cls: 'num' } : null;
+      if (r === 3) return c === 'A' ? { t: ctx[0] + ' \\ ' + ctx[1], cls: 'hdr' } : { t: String(qtys[X.colToNum(c) - 2]), cls: 'hdr' };
+      if (c === 'A') return { t: '$' + prices[r - 4], cls: 'hdr' };
+      return c === 'B' && r === 4 ? ASK : { t: 'copy', cls: 'copy' };
+    });
+    return { title: 'Price times quantity table', skills: ['relabs'], cards: ['relabs'], sheet, items: [mkItem(item, scen, mode === 'discount' ? [{ label: 'Discount rate', addr: 'B1', value: disc }] : [])],
+      desc: '<p>' + ctx[0] + ' runs down the left. ' + ctx[1] + ' runs across the top.' + (mode === 'discount' ? ' Every result also gets the discount rate in B1 taken off.' : '') + '</p><p>Write <strong>one formula</strong> in the first cell of the table. It must give the right answer in every cell when you copy it across and down.</p>' };
+  }
+
+  /* ---------- drill: IF in action ---------- */
+  const IFV = {
+    bonus: { title: 'Sales bonus', ent: ['Avery', 'Blake', 'Casey', 'Drew'], vlabel: 'Sales', ins: [['Quota', () => rnd(4, 8) * 10000, 'money'], ['Bonus rate', () => rnd(2, 6) / 100, 'pct']], vg: () => rnd(20, 100) * 1000, vfmt: money,
+      c1: 'Bonus', f1: (r, i) => `=IF(B${r}>${i[0]},B${r}*${i[1]},0)`, op1: '>', c2: 'Status', f2: (r, i) => `=IF(B${r}>=${i[0]},"Met","Short")`,
+      desc: 'A bonus is paid only on sales that <strong>exceed</strong> the quota. It is the bonus rate times the sales. The Status column says Met when sales <strong>reach or beat</strong> the quota. Otherwise it says Short.',
+      h1: ['The bonus depends on a yes or no question about the quota.', 'Test whether sales exceed the quota. If so, rate times sales. If not, zero.'], h2: ['The Status test must treat sales exactly equal to the quota as Met.', 'Use >= in the test. The two results are text, so they go in quotes.'] },
+    late: { title: 'Late fees', ent: ['Invoice 101', 'Invoice 102', 'Invoice 103', 'Invoice 104'], vlabel: 'Days late', ins: [['Grace period (days)', () => rnd(3, 10), 'num'], ['Fee per extra day', () => rnd(2, 9), 'money']], vg: () => rnd(0, 25), vfmt: (n) => String(n),
+      c1: 'Fee', f1: (r, i) => `=IF(B${r}>${i[0]},(B${r}-${i[0]})*${i[1]},0)`, op1: '>', c2: 'Status', f2: (r, i) => `=IF(B${r}>${i[0]},"Late","On time")`,
+      desc: 'An invoice is charged a fee only for days <strong>beyond</strong> the grace period. The fee is the extra days times the fee per extra day. The Status column says Late when the invoice is past the grace period. Otherwise it says On time.',
+      h1: ['Only the days past the grace period are charged.', 'If days late exceed the grace period, charge (days late minus grace) times the fee. Otherwise zero.'], h2: ['An invoice exactly at the grace period is not late.', 'Test whether days late exceed the grace period, with text results in quotes.'] },
+    disc: { title: 'Volume discount', ent: ['Order A', 'Order B', 'Order C', 'Order D'], vlabel: 'Units', ins: [['Discount starts at (units)', () => rnd(5, 20) * 10, 'num'], ['Discount rate', () => rnd(5, 15) / 100, 'pct'], ['Price per unit', () => rnd(8, 40), 'money']], vg: () => rnd(2, 30) * 10, vfmt: (n) => String(n),
+      c1: 'Discount', f1: (r, i) => `=IF(B${r}>=${i[0]},B${r}*${i[2]}*${i[1]},0)`, op1: '>=', c2: 'Tier', f2: (r, i) => `=IF(B${r}>=${i[0]},"Bulk","Regular")`,
+      desc: 'An order of units that <strong>reaches</strong> the discount threshold gets the discount rate taken off its value (units times price per unit). The Tier column says Bulk when the order reaches the threshold. Otherwise it says Regular.',
+      h1: ['The discount depends on whether the order reaches the threshold.', 'If units reach the threshold, units times price times the discount rate. Otherwise zero.'], h2: ['An order exactly at the threshold counts as Bulk.', 'Use >= in the test and put the text results in quotes.'] }
+  };
+  function genIf(kind) {
+    const V = IFV[kind || pick(['bonus', 'late', 'disc'])];
+    const fmtIn = { money: money, pct: pctText, num: (n) => String(n) };
+    const insRows = V.ins.map((x, i) => 2 + i), hdr = 3 + V.ins.length, r1 = hdr + 1;
+    const mkIns = () => V.ins.map((x) => x[1]());
+    const absAddr = insRows.map((r) => '$B$' + r);
+    const base0 = mkIns();
+    function vals(ins, edge) {
+      let v; const thr = ins[0];
+      do { v = V.ent.map(() => V.vg()); } while (!(v.some((x) => x > thr) && v.some((x) => x < thr)));
+      if (edge) { v[0] = thr; if (v[1] <= thr) v[1] = thr + 10; if (v[2] <= thr) v[2] = thr + 10; }
+      return v;
+    }
+    const build = (ins, v) => {
+      const s = new X.Sheet(); ins.forEach((x, i) => s.set('B' + insRows[i], x));
+      v.forEach((x, i) => { const r = r1 + i; s.set('B' + r, x); s.set('C' + r, V.f1(r, absAddr)); s.set('D' + r, V.f2(r, absAddr)); }); return s;
+    };
+    const ins1 = V.ins.map((x, i) => (x[2] === 'pct' ? base0[i] + 0.03 : x[2] === 'money' ? base0[i] + 2 : base0[i] + 2));
+    const scen = [{ name: 'base', sheet: build(base0, vals(base0)) }, { name: 'changed', sheet: build(ins1, vals(ins1)) }, { name: 'edge', sheet: build(base0, vals(base0, true)) }];
+    const lit = V.ins.map((x, i) => ({ label: x[0], addr: 'B' + insRows[i], value: base0[i] }));
+    const items = [
+      { addr: 'C' + r1, label: V.c1 + ', first row', ref: V.f1(r1, absAddr), fill: { dc: 0, dr: 1, n: 3 }, skills: ['ifx', 'relabs', 'inputs'], lossName: 'edge', ifMsg: EDGE_MSG, hints: V.h1, explain: 'An IF with the limit locked. The row moves down when copied.' },
+      { addr: 'D' + r1, label: V.c2 + ', first row', ref: V.f2(r1, absAddr), fill: { dc: 0, dr: 1, n: 3 }, skills: ['ifx', 'relabs'], lossName: 'edge', ifMsg: EDGE_MSG, hints: V.h2, explain: 'An IF that returns text. The text is in quotes. The limit is locked.' }];
+    const base = scen[0].sheet;
+    const sheet = sheetTable(['A', 'B', 'C', 'D'], [1].concat(insRows).concat([hdr]).concat(V.ent.map((e, i) => r1 + i)), (c, r) => {
+      if (r === 1) return c === 'A' ? { t: V.title, cls: 'title' } : null;
+      const ii = insRows.indexOf(r);
+      if (ii >= 0) return c === 'A' ? { t: V.ins[ii][0] } : c === 'B' ? { t: fmtIn[V.ins[ii][2]](base0[ii]), cls: 'num' } : null;
+      if (r === hdr) return { t: ['', V.vlabel, V.c1, V.c2][X.colToNum(c) - 1], cls: 'hdr' };
+      if (c === 'A') return { t: V.ent[r - r1] };
+      if (c === 'B') return { t: V.vfmt(base.value('B' + r)), cls: 'num' };
+      return r === r1 ? ASK : COPYD;
+    });
+    return { title: V.title, skills: ['ifx', 'relabs', 'inputs'], cards: ['ifx'], sheet, items: items.map((d) => mkItem(d, scen, lit)),
+      desc: '<p>' + V.desc + '</p><p>Write the two formulas for the first row. The other rows are filled by copying down. Limits and rates live in the input cells above the table.</p>' };
+  }
+
+  /* ---------- drill: summary functions ---------- */
+  function genSummary() {
+    const ctx = pick([['Weekly sales', 'Week', 'money'], ['Daily visitors', 'Day', 'num'], ['Quiz scores', 'Quiz', 'num']]);
+    const n = 6, r1 = 3, rl = r1 + n - 1;
+    const mk = () => Array.from({ length: n }, () => (ctx[2] === 'money' ? rnd(10, 90) * 100 : rnd(40, 99)));
+    const build = (d) => { const s = new X.Sheet(); d.forEach((v, i) => s.set('B' + (r1 + i), v)); return s; };
+    const scen = [{ name: 'base', sheet: build(mk()) }, { name: 'changed', sheet: build(mk()) }];
+    const R = `B${r1}:B${rl}`;
+    const defs = [
+      { addr: 'B' + (rl + 1), label: 'Total', ref: `=SUM(${R})`, needRange: true, skills: ['sumrange'], hints: ['Add the whole column.', 'SUM over the range.'], explain: 'SUM over the six values.' },
+      { addr: 'B' + (rl + 2), label: 'Highest', ref: `=MAX(${R})`, skills: ['minmax'], hints: ['Which function returns the largest value?'], explain: 'MAX over the range.' },
+      { addr: 'B' + (rl + 3), label: 'Lowest', ref: `=MIN(${R})`, skills: ['minmax'], hints: ['Which function returns the smallest value?'], explain: 'MIN over the range.' },
+      { addr: 'B' + (rl + 4), label: 'Average', ref: `=AVERAGE(${R})`, skills: ['minmax'], hints: ['The mean of the values.', 'AVERAGE over the range. Dividing a SUM by a typed 6 also gives the right number today, but it is not flexible.'], explain: 'AVERAGE over the range.' },
+      { addr: 'B' + (rl + 5), label: 'How many ' + ctx[1].toLowerCase() + 's are reported', ref: `=COUNT(${R})`, skills: ['minmax'], hints: ['Count cells that hold numbers.'], explain: 'COUNT counts numeric cells.' },
+      { addr: 'B' + (rl + 6), label: 'Spread, highest minus lowest', ref: `=MAX(${R})-MIN(${R})`, skills: ['minmax'], hints: ['Combine two functions you already used.'], explain: 'MAX minus MIN.' }];
+    const base = scen[0].sheet;
+    const labels = ['Total', 'Highest', 'Lowest', 'Average', 'Count', 'Spread'];
+    const sheet = sheetTable(['A', 'B'], [1, 2].concat(Array.from({ length: n }, (x, i) => r1 + i)).concat(labels.map((l, i) => rl + 1 + i)), (c, r) => {
+      if (r === 1) return c === 'A' ? { t: ctx[0], cls: 'title' } : null;
+      if (r === 2) return { t: c === 'A' ? ctx[1] : 'Value', cls: 'hdr' };
+      if (r <= rl) return c === 'A' ? { t: ctx[1] + ' ' + (r - r1 + 1) } : { t: String(base.value('B' + r)), cls: 'num' };
+      return c === 'A' ? { t: labels[r - rl - 1] } : ASK;
+    });
+    return { title: 'Summary functions', skills: ['sumrange', 'minmax'], cards: ['sumrange', 'minmax'], sheet, items: defs.map((d) => mkItem(d, scen)),
+      desc: '<p>' + ctx[0] + ' for six periods are listed. Write a formula for each summary line below the data.</p>' };
+  }
+
+  /* ---------- apply: commission sheet ---------- */
+  function genCommission() {
+    const quota = rnd(4, 8) * 10000, rate = rnd(3, 8) / 100, reps = ['Avery', 'Blake', 'Casey', 'Drew'];
+    const mkS = (edge, q) => { q = q || quota; let v; do { v = reps.map(() => rnd(20, 100) * 1000); } while (!(v.filter((x) => x > q).length >= 2)); if (edge) v[0] = q; return v; };
+    const build = (q, rt, v) => {
+      const s = new X.Sheet(); s.set('B2', q); s.set('B3', rt);
+      v.forEach((x, i) => { const r = 6 + i; s.set('B' + r, x); s.set('C' + r, `=IF(B${r}>$B$2,B${r}*$B$3,0)`); s.set('D' + r, `=C${r}/$C$10`); });
+      s.set('B10', '=SUM(B6:B9)'); s.set('C10', '=SUM(C6:C9)'); s.set('B11', '=MAX(B6:B9)'); return s;
+    };
+    const scen = [{ name: 'base', sheet: build(quota, rate, mkS()) }, { name: 'changed', sheet: build(quota + 10000, rate + 0.02, mkS(false, quota + 10000)) }, { name: 'edge', sheet: build(quota, rate, mkS(true)) }];
+    const lit = [{ label: 'Quota', addr: 'B2', value: quota }, { label: 'Commission rate', addr: 'B3', value: rate }];
+    const defs = [
+      { addr: 'C6', label: 'Commission, first rep', ref: '=IF(B6>$B$2,B6*$B$3,0)', fill: { dc: 0, dr: 1, n: 3 }, skills: ['ifx', 'relabs', 'inputs'], lossName: 'edge', ifMsg: EDGE_MSG, hints: ['Commission is paid only on sales above the quota.', 'IF sales exceed the quota, sales times the rate. Otherwise zero. Lock the quota and the rate.'], explain: 'An IF with both inputs locked.' },
+      { addr: 'D6', label: 'Share of total commission, first rep', ref: '=C6/$C$10', fill: { dc: 0, dr: 1, n: 3 }, accept100: true, skills: ['pctchg', 'relabs'], hints: ['Part divided by total, like the budget drill.', 'This rep\'s commission over the locked total commission.'], explain: 'The commission divided by the locked total.' },
+      { addr: 'B10', label: 'Total sales', ref: '=SUM(B6:B9)', fill: { dc: 1, dr: 0, n: 1 }, needRange: true, skills: ['sumrange'], hints: ['Add the four reps.', 'Copying it right must total the commission column, so use SUM over the range.'], explain: 'SUM over the rep rows. Copied right, it totals the next column.' },
+      { addr: 'B11', label: 'Top sales', ref: '=MAX(B6:B9)', skills: ['minmax'], hints: ['Which function returns the largest value?'], explain: 'MAX over the sales.' }];
+    const base = scen[0].sheet;
+    const sheet = sheetTable(['A', 'B', 'C', 'D'], [1, 2, 3, 5, 6, 7, 8, 9, 10, 11], (c, r) => {
+      if (r === 1) return c === 'A' ? { t: 'Commission sheet', cls: 'title' } : null;
+      if (r === 2) return c === 'A' ? { t: 'Quota' } : c === 'B' ? { t: money(quota), cls: 'num' } : null;
+      if (r === 3) return c === 'A' ? { t: 'Commission rate' } : c === 'B' ? { t: pctText(rate), cls: 'num' } : null;
+      if (r === 5) return { t: ['Rep', 'Sales', 'Commission', 'Share of commission'][X.colToNum(c) - 1], cls: 'hdr' };
+      if (r >= 6 && r <= 9) { if (c === 'A') return { t: reps[r - 6] }; if (c === 'B') return { t: money(base.value('B' + r)), cls: 'num' }; return r === 6 ? ASK : COPYD; }
+      if (r === 10) return c === 'A' ? { t: 'Total' } : c === 'B' ? ASK : c === 'C' ? COPYR : null;
+      return c === 'A' ? { t: 'Top sales' } : c === 'B' ? ASK : null;
+    });
+    return { title: 'Commission sheet', skills: ['ifx', 'relabs', 'sumrange', 'minmax', 'pctchg'], cards: ['ifx', 'relabs'], sheet, items: defs.map((d) => mkItem(d, scen, lit)),
+      desc: '<p>Four reps earn commission only on sales that <strong>exceed</strong> the quota. The commission is the rate times their sales.</p><p>Write the formulas for the first rep, the totals, and the top sales line. Rows below the first rep are filled by copying down. The Total will also be copied one column to the right.</p>' };
+  }
+
+  const DRILLS = { pct: genPctChange, total: genPctTotal, savings: genSavings, table: genPriceTable, iff: genIf, summary: genSummary, commission: genCommission };
+
+  /* ---------- order of operations ---------- */
+  function renderOrder(root) {
+    root.innerHTML = ''; root.append(skillCard('opsorder'));
+    const forms = ['A+B*C', '(A*B)+C', 'A*(B+C)', 'A*B+C', '(A+B)*C', 'A+B/C', 'A-B*C', '(A-B)*C', 'A^2+B', 'A*B^2', 'A+B^2*C', '(A+B)^2', 'A/B+C', 'A*B/C', 'A-B+C*2'];
+    let rowsData;
+    for (let tries = 0; tries < 500; tries++) {
+      const data = shuffle(forms).slice(0, 5).map((f, i) => { const r = i + 1, vals = { A: rnd(1, 9), B: rnd(1, 9), C: rnd(1, 9) }; return { r, vals, text: '=' + f.replace(/[ABC]/g, (m) => m + r) }; });
+      const ok = data.every((d) => { const s = new X.Sheet(); s.set('A' + d.r, d.vals.A); s.set('B' + d.r, d.vals.B); s.set('C' + d.r, d.vals.C); d.sheet = s; d.ast = X.parse(d.text); d.val = X.evaluate(d.ast, s); return typeof d.val === 'number' && Number.isInteger(d.val) && d.val >= 0 && d.val < 500; });
+      if (ok) { rowsData = data; break; }
+    }
+    const total = rowsData.reduce((s, d) => s + d.val, 0);
+    const sheet = sheetTable(['A', 'B', 'C', 'D', 'E'], [1, 2, 3, 4, 5, 6], (c, r) => {
+      if (r === 6) return c === 'D' ? { t: '=SUM(D1:D5)', cls: 'f' } : c === 'E' ? ASK : null;
+      const d = rowsData[r - 1];
+      if (c === 'A' || c === 'B' || c === 'C') return { t: String(d.vals[c]), cls: 'num' };
+      return c === 'D' ? { t: d.text, cls: 'f' } : ASK;
+    });
+    const inputs = [], boxes = [];
+    const card = h('div', { class: 'card' }, h('h3', null, 'Order of operations'), h('p', null, 'Work out what each formula in column D returns. Write the answers in column E, then the total. Do it on paper first.'), sheet);
+    const form = h('div', { class: 'card' });
+    rowsData.concat([{ r: 6, text: '=SUM(D1:D5)', val: total, total: true }]).forEach((d) => {
+      const inp = h('input', { type: 'text', inputmode: 'decimal', class: 'fx short', 'aria-label': 'Value of ' + d.text, spellcheck: 'false' }); inputs.push(inp);
+      const box = h('div', { class: 'result' }); boxes.push(box);
+      form.append(h('div', { class: 'item' }, h('label', null, h('span', { class: 'addr' }, 'E' + d.r), ' ', h('code', null, d.text)), h('div', { class: 'row' }, inp), box));
+    });
+    const summary = h('div', { class: 'summary', 'aria-live': 'polite' });
+    form.append(h('div', { class: 'row actions' }, h('button', { class: 'btn', onclick: () => {
+      let ok = 0, filled = 0;
+      rowsData.concat([{ r: 6, val: total, total: true }]).forEach((d, i) => {
+        const raw = inputs[i].value.trim(); boxes[i].innerHTML = '';
+        if (raw === '') { boxes[i].append(h('div', { class: 'badge bad' }, 'Nothing typed yet')); return; }
+        filled++; const v = parseFloat(raw);
+        if (X.close(v, d.val)) { ok++; boxes[i].append(h('div', { class: 'badge ok' }, 'Correct')); recordSkills(['opsorder'], true); return; }
+        recordSkills(['opsorder'], false);
+        boxes[i].append(h('div', { class: 'badge bad' }, 'Not yet'));
+        if (d.total) boxes[i].append(h('p', { class: 'small' }, 'Add the five values in column D. If one is off, fix that first.'));
+        else boxes[i].append(h('p', { class: 'small' }, 'Excel works in this order: parentheses, exponents, multiplication and division left to right, addition and subtraction left to right.'), h('ol', null, X.steps(d.ast, d.sheet).map((s) => h('li', null, s))), h('p', { class: 'small' }, 'The result is ' + d.val + '.'));
+      });
+      summary.textContent = ok + ' of 6 correct.';
+    } }, 'Check'), h('button', { class: 'btn ghost', onclick: () => renderOrder(root) }, 'New problem with new numbers')), summary);
+    root.append(card, form);
+    window.__order = { rowsData, total, inputs };
+  }
+
+  /* ---------- copy a formula ---------- */
+  function renderCopy(root) {
+    root.innerHTML = ''; root.append(skillCard('relabs'));
+    const ocol = rnd(1, 3), orow = rnd(1, 3);
+    const rel = (dc, dr) => ({ t: 'ref', col: ocol + dc, row: orow + dr, ac: false, ar: false });
+    const kind = pick(['abs', 'abs', 'abs', 'mixcol', 'mixrow', 'rel']);
+    const o1 = pick([[1, 0], [0, 1], [1, 1]]), first = rel(o1[0], o1[1]);
+    let second;
+    do { second = { t: 'ref', col: rnd(1, 4), row: rnd(1, 4), ac: kind === 'abs' || kind === 'mixcol', ar: kind === 'abs' || kind === 'mixrow' }; }
+    while ((second.col === ocol && second.row === orow) || (second.col === first.col && second.row === first.row));
+    const ast = { t: 'bin', op: pick(['*', '+', '-', '/']), l: first, r: second };
+    const text = X.toText(ast);
+    let dc = rnd(0, 3), dr = rnd(0, 3); if (!dc && !dr) dc = 2;
+    const expected = X.shift(ast, dc, dr), expText = X.toText(expected);
+    const tc = ocol + dc, tr = orow + dr, origin = X.addrText(ocol, orow), target = X.addrText(tc, tr);
+    const sheet = sheetTable(['A', 'B', 'C', 'D', 'E', 'F'], [1, 2, 3, 4, 5, 6], (c, r) => {
+      const cn = X.colToNum(c);
+      if (cn === ocol && r === orow) return { t: text, cls: 'f origin' };
+      if (cn === tc && r === tr) return ASK;
+      return { t: String((cn * 3 + r * 5) % 9 + 1), cls: 'num faint' };
+    });
+    const inp = h('input', { type: 'text', class: 'fx', spellcheck: 'false', 'aria-label': 'Formula in ' + target, placeholder: '=' });
+    const box = h('div', { class: 'result', 'aria-live': 'polite' });
+    const check = () => {
+      box.innerHTML = '';
+      const raw = inp.value.trim(); if (!raw) { box.append(h('div', { class: 'badge bad' }, 'Nothing typed yet')); return; }
+      let ok = false, err = null;
+      try { ok = X.sameFormula(X.parse(raw), expected); } catch (e) { err = e.message; }
+      if (err) { box.append(h('div', { class: 'badge bad' }, 'Not yet'), h('p', { class: 'small' }, err)); return; }
+      box.append(h('div', { class: 'badge ' + (ok ? 'ok' : 'bad') }, ok ? 'Correct' : 'Not yet'));
+      const refs = X.refsOf(ast).map((r) => {
+        const moved = X.shift(r, dc, dr), plain = X.refText(r);
+        const lock = r.ac && r.ar ? 'locked on both column and row, so it stays ' + plain : r.ac ? 'the column is locked and the row moves, so it becomes ' + X.refText(moved) : r.ar ? 'the row is locked and the column moves, so it becomes ' + X.refText(moved) : 'has no $, so it moves with the copy and becomes ' + X.refText(moved);
+        return h('li', null, plain + ' is ' + lock + '.');
+      });
+      box.append(h('p', { class: 'small' }, 'The copy moves ' + dc + ' column' + (dc === 1 ? '' : 's') + ' right and ' + dr + ' row' + (dr === 1 ? '' : 's') + ' down. A reference with no $ moves by that amount. A $ freezes the part it sits in front of.'), h('ul', null, refs), h('p', null, 'The cell ' + target + ' holds ', h('code', null, expText), '.'), skillChips(['relabs']));
+      recordSkills(['relabs'], ok);
+    };
+    inp.addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); check(); } });
+    root.append(h('div', { class: 'card' }, h('h3', null, 'Copy a formula'),
+      h('p', null, 'Cell ', h('span', { class: 'addr' }, origin), ' holds ', h('code', null, text), '. It is copied to cell ', h('span', { class: 'addr' }, target), '. What formula is in ', h('span', { class: 'addr' }, target), '?'),
+      sheet, h('div', { class: 'row' }, inp, h('button', { class: 'btn', onclick: check }, 'Check'), h('button', { class: 'btn ghost', onclick: () => renderCopy(root) }, 'New problem')), box));
+    window.__copy = { expText, inp };
+  }
+
+  /* ---------- question bank renderer ---------- */
+  const decks = {};
+  function nextFromDeck(key, n) {
+    const pool = BANK[key]; const d = decks[key] || (decks[key] = { order: [], pos: 0 });
+    const out = [];
+    while (out.length < Math.min(n, pool.length)) {
+      if (d.pos >= d.order.length) { d.order = shuffle(pool.map((q, i) => i)); d.pos = 0; }
+      const i = d.order[d.pos++]; if (out.indexOf(i) < 0) out.push(i);
+    }
+    return out.map((i) => pool[i]);
+  }
+
+
+  /* ---------- picture of an Excel window ---------- */
+  function visGrid(v) {
+    const sel = v.sel || [], err = v.err || [];
+    const strip = h('div', { class: 'xstrip' },
+      h('span', { class: 'namebox', title: 'Name Box' }, v.name || v.active), h('span', { class: 'fxlabel' }, 'fx'), h('span', { class: 'fxbar', title: 'Formula bar' }, v.bar || ' '));
+    const grid = sheetTable(v.cols, v.rows, (c, r) => {
+      const a = c + r; const t = (v.cells || {})[a];
+      const cls = [err.indexOf(a) >= 0 ? 'err' : '', a === v.active || sel.indexOf(a) >= 0 ? 'active' : '', v.handle && a === v.active ? 'handle' : '', /^[\d.,%$-]+$/.test(t || '') ? 'num' : ''].filter(Boolean).join(' ');
+      return { t: t === undefined ? '' : t, cls };
+    });
+    return h('div', { class: 'vis', 'aria-label': 'Picture of an Excel window' }, strip, grid);
+  }
+  const fmtCell = (v) => (typeof v === 'number' ? (Math.abs(v) < 1 && v !== 0 ? pctText(v) : String(v)) : String(v));
+
+  /* ---------- write-it question ---------- */
+  function qWrite(q, onDone) {
+    const mk = (over, scale) => {
+      const s = new X.Sheet();
+      Object.keys(q.cells).forEach((a) => { let v = q.cells[a]; if (v === null || v === undefined) return; if (typeof v === 'number' && scale) v = Math.round(v * scale * 10000) / 10000; s.set(a, v); });
+      Object.keys(over || {}).forEach((a) => s.set(a, over[a]));
+      return s;
+    };
+    const scen = [{ name: 'base', sheet: mk() }, { name: 'changed', sheet: mk(null, 1.25) }];
+    if (q.extra) scen.push({ name: 'edge case', sheet: mk(q.extra) });
+    if (q.edge) scen.push({ name: 'edge', sheet: mk(q.edge) });
+    const spec = { origin: X.addr(q.origin), ref: X.parse(q.ans), scen, fill: q.fill || null, inputs: [], needRange: !!q.needRange, accept100: false, allowLits: [0, 1, 2], lossName: q.edge ? 'edge' : undefined, ifMsg: q.edge ? EDGE_MSG : undefined };
+    // layout
+    const labels = q.labels || {}, all = Object.keys(q.cells).concat(Object.keys(labels), [q.origin]);
+    const ad = all.map((a) => X.addr(a));
+    const c0 = Math.min.apply(null, ad.map((x) => x.col)), c1 = Math.max.apply(null, ad.map((x) => x.col) .concat([X.addr(q.origin).col + (q.fill && q.fill.dc ? q.fill.dc * q.fill.n : 0)]));
+    const r0 = Math.min.apply(null, ad.map((x) => x.row)), r1 = Math.max.apply(null, ad.map((x) => x.row).concat([X.addr(q.origin).row + (q.fill && q.fill.dr ? q.fill.dr * q.fill.n : 0)]));
+    const cols = [], rows = [];
+    for (let c = c0; c <= c1; c++) cols.push(colL(c));
+    for (let r = r0; r <= r1; r++) rows.push(r);
+    const o = X.addr(q.origin), fl = q.fill;
+    const sheet = sheetTable(cols, rows, (c, r) => {
+      const a = c + r;
+      if (a === q.origin) return q.shown ? { t: q.shown, cls: 'f' } : ASK;
+      if (fl) { for (let k = 1; k <= fl.n; k++) { if (X.colToNum(c) === o.col + fl.dc * k && r === o.row + fl.dr * k) return q.shown ? { t: '0', cls: 'num' } : (fl.dr ? COPYD : COPYR); } }
+      if (labels[a] !== undefined) return { t: labels[a], cls: /^[A-Z]1$/.test(a) && !q.cells[a] ? 'title' : '' };
+      const v = q.cells[a]; if (v !== undefined && v !== null) return { t: fmtCell(v), cls: 'num' };
+      return null;
+    });
+    const fb = h('div', { class: 'fb', 'aria-live': 'polite' });
+    const input = h('input', { type: 'text', class: 'fx', spellcheck: 'false', autocomplete: 'off', placeholder: 'Type the formula for ' + q.origin, 'aria-label': 'Formula for ' + q.origin });
+    const hintBox = h('div', { class: 'hint' });
+    let done = false, missed = false;
+    const check = () => {
+      const text = input.value.trim(); if (!text) { fb.innerHTML = ''; fb.append(h('div', { class: 'badge bad' }, 'Nothing typed yet')); return; }
+      const r = X.grade(spec, text); showResult(fb, r);
+      if (r.level === 'pass') { if (!done) { done = true; if (!missed) recordSkills(q.skills, true); onDone(!missed); } fb.append(skillChips(q.skills)); if (q.why) fb.append(h('p', null, q.why)); input.disabled = true; checkBtn.disabled = true; }
+      else if (!done) { fb.append(h('p', { class: 'small' }, 'Fix it and check again. Use a hint if you are stuck. Your first miss counts toward your skills.')); if (!missed) { missed = true; recordSkills(q.skills, false); } }
+    };
+    const checkBtn = h('button', { class: 'btn', onclick: check }, 'Check');
+    input.addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); check(); } });
+    const hintBtn = h('button', { class: 'btn ghost', onclick: () => { hintBox.innerHTML = ''; hintBox.append(h('strong', null, 'Hint: '), q.hint || 'Look at which cells move when the formula is copied.'); } }, 'Hint');
+    const showBtn = h('button', { class: 'btn ghost', onclick: () => {
+      hintBox.innerHTML = ''; hintBox.append(h('strong', null, 'One correct answer: '), h('code', null, q.ans), q.why ? h('p', { class: 'small' }, q.why) : null);
+      if (!done) { done = true; if (!missed) { missed = true; recordSkills(q.skills, false); } onDone(false); }
+      fb.append(skillCard(q.skills[0], true));
+    } }, 'Show an answer');
+    return h('div', { class: 'card' }, h('p', { class: 'q' }, h('span', { class: 'tag' }, 'Write it'), ' ', q.q), sheet, h('p', { class: 'small' }, 'Write it on paper first, then type it.'), h('div', { class: 'row' }, input, checkBtn, hintBtn, showBtn), hintBox, fb);
+  }
+
+  function qMC(q, onDone) {
+    const fb = h('div', { class: 'fb', 'aria-live': 'polite' });
+    const all = [q.right].concat(q.wrongs); const opts = q.fixed ? ['True', 'False'] : shuffle(all);
+    const wrap = h('div', { class: 'opts' });
+    opts.forEach((o) => {
+      const b = h('button', { class: 'opt', onclick: () => {
+        if (wrap.dataset.done) return; wrap.dataset.done = '1';
+        const ok = o === q.right; b.classList.add(ok ? 'right' : 'wrong');
+        [].forEach.call(wrap.children, (c) => { if (c.textContent === q.right) c.classList.add('right'); });
+        fb.innerHTML = ''; fb.append(h('div', { class: 'badge ' + (ok ? 'ok' : 'bad') }, ok ? 'Correct' : 'Not quite'));
+        if (!ok) fb.append(h('p', null, 'Best answer: ' + q.right));
+        if (q.why) fb.append(h('p', null, q.why));
+        fb.append(skillChips(q.skills)); if (!ok) fb.append(skillCard(q.skills[0], true)); recordSkills(q.skills, ok); onDone(ok);
+      } }, o);
+      wrap.append(b);
+    });
+    return h('div', { class: 'card' }, h('p', { class: 'q' }, q.q), q.vis ? visGrid(q.vis) : null, wrap, fb);
+  }
+
+  function qGroup(q, onDone) {
+    const fb = h('div', { class: 'fb', 'aria-live': 'polite' });
+    const selects = [], rows = [];
+    let body, checkRows;
+    if (q.type === 'classify') {
+      const items = shuffle(q.items).slice(0, 6);
+      checkRows = items.map((it) => ({ label: it[0], answer: it[1], opts: q.cats }));
+    } else if (q.type === 'match') {
+      checkRows = q.parts.map((p) => ({ label: p[0], answer: p[1], opts: shuffle(q.choices), code: true }));
+    } else {
+      const steps = shuffle(q.steps.map((s, i) => [s, i + 1]));
+      checkRows = steps.map((s) => ({ label: s[0], answer: String(s[1]), opts: q.steps.map((x, i) => String(i + 1)) }));
+    }
+    body = checkRows.map((r) => {
+      const sel = h('select', { 'aria-label': r.label }, h('option', { value: '' }, 'Choose'), r.opts.map((o) => h('option', { value: o }, o)));
+      selects.push(sel);
+      const mark = h('span', { class: 'mark' });
+      rows.push(mark);
+      return h('div', { class: 'grow' }, h('div', { class: 'glabel' }, r.code ? h('code', null, r.label) : r.label), h('div', { class: 'gsel' }, sel, mark));
+    });
+    const btn = h('button', { class: 'btn', onclick: () => {
+      let okAll = true, filled = true;
+      selects.forEach((s) => { if (!s.value) filled = false; });
+      if (!filled) { fb.innerHTML = ''; fb.append(h('div', { class: 'badge bad' }, 'Answer every row first')); return; }
+      checkRows.forEach((r, i) => { const ok = selects[i].value === r.answer; if (!ok) okAll = false; rows[i].textContent = ok ? ' Correct' : ' Answer: ' + r.answer; rows[i].className = 'mark ' + (ok ? 'ok' : 'bad'); selects[i].disabled = true; });
+      btn.disabled = true; fb.innerHTML = '';
+      fb.append(h('div', { class: 'badge ' + (okAll ? 'ok' : 'bad') }, okAll ? 'All correct' : 'Not quite. The right answers are shown beside each row.'), skillChips(q.skills)); if (!okAll) fb.append(skillCard(q.skills[0], true));
+      recordSkills(q.skills, okAll); onDone(okAll);
+    } }, 'Check');
+    const lead = q.type === 'order' ? 'Number the steps from 1.' : null;
+    return h('div', { class: 'card' }, h('p', { class: 'q' }, q.q), q.code ? h('p', null, h('code', { class: 'big' }, q.code)) : null, lead ? h('p', { class: 'small' }, lead) : null, body, h('div', { class: 'row actions' }, btn), fb);
+  }
+
+  const renderQ = (q, onDone) => (q.type === 'mc' ? qMC(q, onDone) : q.type === 'write' ? qWrite(q, onDone) : qGroup(q, onDone));
+  function renderBank(root, keys, cards, count) {
+    root.innerHTML = '';
+    if (cards.length) root.append(h('p', { class: 'small' }, 'Skill reminders. Open one if you want a refresher. A missed question opens its skill for you.'));
+    cards.forEach((c) => root.append(skillCard(c, false)));
+    const out = h('div', { class: 'summary', 'aria-live': 'polite' });
+    const holder = h('div');
+    root.append(holder);
+    const draw = () => {
+      holder.innerHTML = ''; out.textContent = '';
+      let qs = [];
+      keys.forEach((k) => { qs = qs.concat(nextFromDeck(k, Math.ceil(count / keys.length))); });
+      qs = shuffle(qs).slice(0, count);
+      let done = 0, right = 0;
+      qs.forEach((q) => {
+        const onDone = (ok) => { done++; if (ok) right++; if (done === qs.length) out.textContent = right + ' of ' + qs.length + ' correct.'; };
+        holder.append(renderQ(q, onDone));
+      });
+    };
+    draw();
+    root.append(h('div', { class: 'row actions' }, h('button', { class: 'btn ghost', onclick: () => { draw(); window.scrollTo(0, 0); } }, 'New set of questions')), out);
+  }
+
+  /* ---------- dashboard ---------- */
+  /* ---------- mixed quiz from weakest skills ---------- */
+  function renderMixed(root, goTo) {
+    root.innerHTML = '';
+    const p = store.get();
+    const order = Object.keys(SK).map((id) => { const v = p[id] || { t: 0, r: 0 }; const pct = v.t ? v.r / v.t : -1; const rank = v.t === 0 ? 2 : pct < 0.6 ? 0 : pct < 0.8 ? 1 : 3; return { id, rank, pct }; }).sort((x, y) => x.rank - y.rank || x.pct - y.pct);
+    const target = order.slice(0, 6).map((o) => o.id);
+    let pool = [];
+    Object.keys(BANK).forEach((k) => BANK[k].forEach((q) => { if (q.skills.some((s) => target.indexOf(s) >= 0)) pool.push(q); }));
+    const qs = shuffle(pool).slice(0, 10);
+    root.append(h('div', { class: 'card' }, h('h3', null, 'Weakest skills quiz'), h('p', null, 'These questions come from the skills where you need the most practice: ', target.map((s) => SK[s].name).join(', '), '.')));
+    const out = h('div', { class: 'summary', 'aria-live': 'polite' });
+    let done = 0, right = 0;
+    const holder = h('div');
+    qs.forEach((q) => holder.append(renderQ(q, (ok) => { done++; if (ok) right++; if (done === qs.length) out.textContent = 'Finished. ' + right + ' of ' + qs.length + ' right the first time. Open My skills to see your update.'; })));
+    root.append(holder, out, h('div', { class: 'row actions' }, h('button', { class: 'btn', onclick: () => goTo('mine') }, 'Back to My skills'), h('button', { class: 'btn ghost', onclick: () => renderMixed(root, goTo) }, 'New quiz')));
+  }
+
+  function renderDash(root, goTo) {
+    root.innerHTML = '';
+    const p = store.get();
+    root.append(h('div', { class: 'card' }, h('h3', null, 'My skills'), h('p', null, 'Every question you answer counts toward the skills it uses. Skills with the lowest scores come first. Your results stay in this browser only.')));
+    const TABS = { foundations: 'Foundations', formulas: 'Formula skills', iflookup: 'IF and lookups', whatif: 'What if tools', analytics: 'Analytics and charts', itdesign: 'IT and design' };
+    const stat = (id) => { const v = p[id] || { t: 0, r: 0 }; return { t: v.t, pct: v.t ? v.r / v.t : -1, strong: v.t >= 3 && v.r / v.t >= 0.8 }; };
+    const ready = h('div', { class: 'card' }, h('h3', null, 'Am I ready?'), h('p', { class: 'small' }, 'A skill is strong at 80 percent or better after at least 3 answers. A module is ready when every skill in it is strong.'));
+    let strongAll = 0, totalAll = 0;
+    Object.keys(TABS).forEach((tab) => {
+      const ids = Object.keys(SK).filter((k) => SK[k].tab === tab); if (!ids.length) return;
+      const n = ids.filter((k) => stat(k).strong).length, started = ids.filter((k) => stat(k).t > 0).length;
+      strongAll += n; totalAll += ids.length;
+      const lvl = n === ids.length ? ['Ready', 'ok'] : n / ids.length >= 0.6 ? ['Almost there', 'warn'] : started ? ['Keep going', 'bad'] : ['Not started', 'idle'];
+      ready.append(h('div', { class: 'skrow' }, h('div', { class: 'skname' }, TABS[tab]), h('div', { class: 'bar' }, h('div', { class: 'fill ' + lvl[1], style: 'width:' + Math.round(100 * n / ids.length) + '%' })), h('div', { class: 'skstat' }, n + ' of ' + ids.length + ' skills strong'), h('span', { class: 'badge ' + (lvl[1] === 'idle' ? '' : lvl[1]) }, lvl[0]), h('button', { class: 'btn ghost small-btn', onclick: () => goTo(tab) }, 'Open')));
+    });
+    ready.append(h('p', null, h('strong', null, strongAll + ' of ' + totalAll + ' skills strong overall.')), h('div', { class: 'row actions' }, h('button', { class: 'btn', onclick: () => renderMixed(root, goTo) }, 'Quiz me on my weakest skills (10 questions)')));
+    root.append(ready);
+    const rows = Object.keys(SK).map((id) => { const v = p[id] || { t: 0, r: 0 }; return { id, t: v.t, r: v.r, pct: v.t ? v.r / v.t : -1 }; });
+    rows.sort((a, b) => (a.t === 0 ? 2 : a.pct) - (b.t === 0 ? 2 : b.pct));
+    const card = h('div', { class: 'card' });
+    rows.forEach((r) => {
+      const status = r.t === 0 ? ['Not started', 'idle'] : r.pct >= 0.8 ? ['Strong', 'ok'] : r.pct >= 0.6 ? ['Building', 'warn'] : ['Needs work', 'bad'];
+      card.append(h('div', { class: 'skrow' },
+        h('div', { class: 'skname' }, SK[r.id].name),
+        h('div', { class: 'bar', role: 'img', 'aria-label': Math.round(Math.max(r.pct, 0) * 100) + ' percent correct' }, h('div', { class: 'fill ' + status[1], style: 'width:' + Math.round(Math.max(r.pct, 0) * 100) + '%' })),
+        h('div', { class: 'skstat' }, r.t ? r.r + ' of ' + r.t : 'No answers yet'),
+        h('span', { class: 'badge ' + (status[1] === 'idle' ? '' : status[1]) }, status[0]),
+        h('button', { class: 'btn ghost small-btn', onclick: () => goTo(SK[r.id].tab) }, 'Practice')));
+    });
+    root.append(card, h('div', { class: 'row actions' }, h('button', { class: 'btn ghost', onclick: () => { if (confirm('Clear all of your saved skill results in this browser?')) { store.set({}); renderDash(root, goTo); } } }, 'Clear my results')));
+  }
+
+  /* ---------- shell ---------- */
+  const drillSub = (id, label, key, arg) => ({ id, label, render: (root) => { const gen = () => renderFormulaProblem(root, DRILLS[key](arg), gen); gen(); } });
+  const bankSub = (id, label, keys, cards, n) => ({ id, label, render: (root) => renderBank(root, keys, cards, n || 6) });
+  const MODULES = [
+    { id: 'foundations', label: 'Foundations', subs: [
+      bankSub('basics', 'Excel basics', ['basics', 'write'], ['refs', 'enter', 'funcs', 'errvals', 'display'], 10),
+      bankSub('cells', 'Cells and formulas', ['cells'], ['refs', 'texnum', 'inputs', 'sumrange', 'minmax'], 6),
+      bankSub('fmt', 'Number formatting', ['fmt'], ['fmt'], 5),
+      bankSub('fmtools', 'Format tools', ['fmtools'], ['fmtools'], 5)] },
+    { id: 'formulas', label: 'Formula skills', subs: [
+      { id: 'ops', label: 'Order of operations', render: renderOrder },
+      { id: 'copy', label: 'Copy a formula', render: renderCopy },
+      drillSub('pct', 'Percent change', 'pct'), drillSub('total', 'Percent of total', 'total'), drillSub('save', 'Growth and savings', 'savings'),
+      drillSub('table', 'Price table', 'table'), drillSub('iff', 'IF in action', 'iff'), drillSub('sum', 'Summary functions', 'summary'),
+      drillSub('comm', 'Commission sheet', 'commission'), bankSub('err', 'Spot the error', ['errors'], [], 5)] },
+    { id: 'iflookup', label: 'IF and lookups', subs: [
+      bankSub('ifr', 'Reading IF', ['ifread'], ['ifx'], 6), bankSub('vl', 'VLOOKUP syntax', ['vlookup'], ['lookup'], 6), bankSub('xl', 'HLOOKUP and XLOOKUP', ['xlookup'], [], 6)] },
+    { id: 'whatif', label: 'What if tools', subs: [
+      bankSub('sim', 'Simulation basics', ['sim'], ['sim'], 5), bankSub('gs', 'Goal Seek', ['goalseek'], ['whatif'], 5), bankSub('dt', 'Data Table', ['datatable'], [], 5),
+      bankSub('sc', 'Scenario Manager', ['scenario'], [], 5), bankSub('wt', 'Which tool?', ['whichtool'], [], 3)] },
+    { id: 'analytics', label: 'Analytics and charts', subs: [
+      bankSub('an', 'Types of analytics', ['analytics'], ['analytics'], 5), bankSub('bi', 'Business intelligence', ['bi'], ['bi'], 4),
+      bankSub('pv', 'Pivot concepts', ['pivot'], ['pivot'], 6), bankSub('ch', 'Charts', ['charts'], ['charts'], 6)] },
+    { id: 'itdesign', label: 'IT and design', subs: [
+      bankSub('it', 'IT and society', ['it'], ['it'], 6), bankSub('ds', 'Design goals', ['design'], ['design'], 5)] },
+    { id: 'mine', label: 'My skills', dash: true }
+  ];
+
+  function goTo(modId, subId) {
+    const mod = MODULES.find((m) => m.id === modId) || MODULES[0];
+    document.querySelectorAll('.tab').forEach((t) => { const on = t.dataset.id === mod.id; t.classList.toggle('on', on); t.setAttribute('aria-selected', on ? 'true' : 'false'); });
+    const view = document.getElementById('view'); view.innerHTML = '';
+    try { window.scrollTo(0, 0); } catch (e) { /* ignore */ }
+    if (mod.dash) { renderDash(view, (t) => goTo(t)); return; }
+    const sub = mod.subs.find((s) => s.id === subId) || mod.subs[0];
+    const bar = h('div', { class: 'subtabs', role: 'tablist' });
+    const body = h('div');
+    mod.subs.forEach((s) => bar.append(h('button', { class: 'subtab' + (s.id === sub.id ? ' on' : ''), role: 'tab', 'aria-selected': s.id === sub.id ? 'true' : 'false', 'data-sub': s.id, onclick: () => goTo(mod.id, s.id) }, s.label)));
+    view.append(bar, body);
+    sub.render(body);
+  }
+
+  window.__goTo = goTo; window.__renderQ = renderQ; window.__gens = DRILLS; window.__bank = BANK; window.__modules = MODULES;
+  let started = false;
+  function init() {
+    if (started) return; started = true;
+    const nav = document.getElementById('nav');
+    nav.setAttribute('role', 'tablist'); nav.setAttribute('aria-label', 'Study areas');
+    MODULES.forEach((m) => nav.append(h('button', { class: 'tab', 'data-id': m.id, role: 'tab', 'aria-selected': 'false', onclick: () => goTo(m.id) }, m.label)));
+    goTo('foundations');
+  }
+  /* Run now if the page already finished loading (some WebViews fire DOMContentLoaded before the listener attaches). */
+  if (document.getElementById('nav') || document.readyState !== 'loading') init(); else window.addEventListener('DOMContentLoaded', init);
+})();
+</script>
+</body>
+</html>
